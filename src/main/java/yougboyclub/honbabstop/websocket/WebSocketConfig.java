@@ -1,4 +1,4 @@
-package youngboyclub.websocket;
+package yougboyclub.honbabstop.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
