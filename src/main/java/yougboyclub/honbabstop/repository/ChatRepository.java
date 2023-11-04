@@ -12,4 +12,8 @@ public interface ChatRepository extends ReactiveMongoRepository<Chat, String> {
     @Tailable // 커서를 안닫고 유지한다
     @Query("{sender: ?0,receiver: ?1}") // 몽고디비 문법임 각각 sender와 receiver의 내용을 받아오겠다
     Flux<Chat> mFindBySender(String sender, String receiver);
+
+    @Tailable
+    @Query("{roomNum: ?0}")
+    Flux<Chat> mFindByRoomNum(Integer roomNum);
 }
