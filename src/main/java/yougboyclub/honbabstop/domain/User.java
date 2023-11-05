@@ -1,6 +1,7 @@
 package yougboyclub.honbabstop.domain;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class User extends BaseEntity{
     private String name;
 
     @Column(name = "BIRTHDAY")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime birth;
 
     @Column(name = "PHONE_NUMBER")
