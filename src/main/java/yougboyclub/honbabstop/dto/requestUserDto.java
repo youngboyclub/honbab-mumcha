@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 @ToString
 public class requestUserDto {
 
-    private Long id;
-
     private String email;
 
     private String password;
@@ -31,7 +29,6 @@ public class requestUserDto {
 
     private char gender;
 
-    private LocalDateTime regDate;
 
     //빌더 패턴을 사용해 DTO를 엔티티로 만들어주는 메서드
     //생성자를 사용해서 객체를 생성.
@@ -44,7 +41,6 @@ public class requestUserDto {
                 .phone(phone)
                 .address(address)
                 .gender(gender)
-                .regDate(regDate)
                 .build();
     }
 
