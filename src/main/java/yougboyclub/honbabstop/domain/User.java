@@ -35,7 +35,5 @@ public class User extends BaseEntity{
     @Column(name = "GENDER")
     private char gender;
 
-    @Column(name = "REG_DATE")
-    private LocalDateTime regDate;
 
 }
