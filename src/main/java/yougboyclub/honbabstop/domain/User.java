@@ -5,12 +5,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "users")
+@ToString
+@Builder
 @Entity
 public class User extends BaseEntity{
 
@@ -21,7 +23,7 @@ public class User extends BaseEntity{
     @Column(name = "user_pwd")
     private String password;
 
-    @Column(name = "user_pwd")
+    @Column(name = "user_name")
     private String name;
 
     @Column(name = "birthday")
@@ -35,7 +37,7 @@ public class User extends BaseEntity{
     private String address;
 
     @Column(name = "gender")
-    private char gender;
+    private String gender;
 
 
 }
