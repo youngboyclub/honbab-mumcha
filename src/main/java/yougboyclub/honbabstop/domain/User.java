@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "USERS")
 @Entity
+@AttributeOverride(name = "id", column = @Column(name = "user_no"))
 public class User extends BaseEntity{
 
 

@@ -1,5 +1,9 @@
 package yougboyclub.honbabstop.service;
 
-public interface BoardService {
+import yougboyclub.honbabstop.domain.Board;
 
+import java.util.List;
+
+public interface BoardService {
+    List<Board> findAllBoard();
 }

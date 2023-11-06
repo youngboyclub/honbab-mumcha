@@ -5,7 +5,6 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class BoardDto {
+public class RequestBoardDto {
     private Long restaurant_no;
     private Long file_id;
     private String food_theme;
@@ -23,6 +22,14 @@ public class BoardDto {
     private User writer;
     private Long hit;
     private LocalDate last_modified;
+    private int status;
+    private int people_limit;
+    private int gender_limit;
+    private int max_age;
+    private int min_age;
+
+    public RequestBoardDto(Long id) {
+    }
 
     @Builder
     public Board toEntity() {
@@ -36,6 +43,11 @@ public class BoardDto {
                 .writer(writer)
                 .hit(hit)
                 .last_modified(last_modified)
+                .status(status)
+                .people_limit(people_limit)
+                .gender_limit(gender_limit)
+                .max_age(max_age)
+                .min_age(min_age)
                 .build();
         return board;
     };
