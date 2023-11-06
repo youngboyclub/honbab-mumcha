@@ -4,37 +4,37 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "USERS")
+@Table(name = "users")
 @Entity
 public class User extends BaseEntity{
 
 
-    @Column(name = "USER_EMAIL")
+    @Column(name = "user_email")
     private String email;
 
-    @Column(name = "USER_PWD")
+    @Column(name = "user_pwd")
     private String password;
 
-    @Column(name = "USER_NAME")
+    @Column(name = "user_pwd")
     private String name;
 
-    @Column(name = "BIRTHDAY")
+    @Column(name = "birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime birth;
+    private LocalDate birth;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "phone_number")
     private String phone;
 
-    @Column(name = "ADDRESS")
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "GENDER")
+    @Column(name = "gender")
     private char gender;
 
 
