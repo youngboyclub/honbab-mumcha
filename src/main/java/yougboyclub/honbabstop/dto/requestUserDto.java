@@ -32,6 +32,8 @@ public class requestUserDto {
 
     private String gender;
 
+    private String mbti;
+
 
     //빌더 패턴을 사용해 DTO를 엔티티로 만들어주는 메서드
     //생성자를 사용해서 객체를 생성.
@@ -44,6 +46,7 @@ public class requestUserDto {
                 .phone(phone)
                 .address(address)
                 .gender(gender)
+                .mbti(mbti)
                 .build();
     }
 

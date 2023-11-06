@@ -37,8 +37,12 @@ public class User extends BaseEntity{
     @Column(name = "gender")
     private String gender;
 
+    @Column(name = "mbti")
+    private String mbti;
+
     @Builder
-    public User(Long id, LocalDateTime regDate, String email, String password, String name, LocalDate birth, String phone, String address, String gender) {
+    public User(Long id, LocalDateTime regDate, String email, String password, String name, LocalDate birth, String phone,
+                String address, String gender, String mbti) {
         super(id, regDate);
         this.email = email;
         this.password = password;
@@ -47,5 +51,6 @@ public class User extends BaseEntity{
         this.phone = phone;
         this.address = address;
         this.gender = gender;
+        this.mbti = mbti;
     }
 }
