@@ -9,10 +9,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "users")
 @ToString
-@Builder
 @Entity
 public class User extends BaseEntity{
 
@@ -39,5 +37,15 @@ public class User extends BaseEntity{
     @Column(name = "gender")
     private String gender;
 
-
+    @Builder
+    public User(Long id, LocalDateTime regDate, String email, String password, String name, LocalDate birth, String phone, String address, String gender) {
+        super(id, regDate);
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.birth = birth;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+    }
 }
