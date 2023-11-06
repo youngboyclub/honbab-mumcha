@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,12 +23,12 @@ public class BaseEntity {
     private Long id;
 
     @CreatedDate //JPA에서 엔티티의 생성 시간을 처리한다.
-    @Column(name = "REG_DATE", updatable = false) //updatable = false => 생성시간을 변경하지 않음.
+    @Column(name = "reg_date", updatable = false) //updatable = false => 생성시간을 변경하지 않음.
     private LocalDateTime regDate;
 
-    public BaseEntity(Long id) {
-        super();
+    public BaseEntity(Long id, LocalDateTime regDate) {
         this.id = id;
+        this.regDate = regDate;
     }
 
     public boolean isNew() {
