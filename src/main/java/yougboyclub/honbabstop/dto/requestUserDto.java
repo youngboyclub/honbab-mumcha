@@ -30,7 +30,7 @@ public class requestUserDto {
 
     private String address;
 
-    private char gender;
+    private String gender;
 
 
     //빌더 패턴을 사용해 DTO를 엔티티로 만들어주는 메서드
