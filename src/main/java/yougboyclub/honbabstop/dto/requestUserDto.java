@@ -1,12 +1,13 @@
 package yougboyclub.honbabstop.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import yougboyclub.honbabstop.domain.User;
 
+import javax.validation.constraints.FutureOrPresent;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -19,9 +20,11 @@ public class requestUserDto {
 
     private String password;
 
-    private String name;
+    private String userName;
 
-    private LocalDateTime birth;
+    //json의 날짜 형식을 변환.
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd")
+    private LocalDate birth;
 
     private String phone;
 
@@ -34,7 +37,7 @@ public class requestUserDto {
     //생성자를 사용해서 객체를 생성.
     public User toEntity(){
         return User.builder()
-                .name(name)
+                .name(userName)
                 .email(email)
                 .password(password)
                 .birth(birth)
