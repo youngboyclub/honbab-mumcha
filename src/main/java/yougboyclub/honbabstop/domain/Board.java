@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "PARTYBOARD")
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "board_id"))
+@AttributeOverride(name = "id", column = @Column(name = "board_no"))
 @ToString
 public class Board extends BaseEntity{
     @Column(name = "RESTAURANT_NO")
