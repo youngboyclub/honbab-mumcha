@@ -5,7 +5,6 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -23,7 +22,7 @@ public class ResponseBoardDto {
     private String content;
     private User writer;
     private Long hit;
-    private LocalDate last_modified;
+    private LocalDateTime last_modified;
     private int status;
     private int people_limit;
     private int gender_limit;

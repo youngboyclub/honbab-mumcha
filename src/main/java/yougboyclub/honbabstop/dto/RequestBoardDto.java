@@ -5,7 +5,7 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +20,6 @@ public class RequestBoardDto {
     private String content;
     private User writer;
     private Long hit;
-    private LocalDate last_modified;
     private int status;
     private int people_limit;
     private int gender_limit;
@@ -40,7 +39,6 @@ public class RequestBoardDto {
                 .content(content)
                 .writer(writer)
                 .hit(hit)
-                .last_modified(last_modified)
                 .status(status)
                 .people_limit(people_limit)
                 .gender_limit(gender_limit)
