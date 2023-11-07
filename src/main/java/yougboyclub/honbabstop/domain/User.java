@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 @ToString
 @Entity
+@AttributeOverride(name = "id", column = @Column(name = "user_no"))
 public class User extends BaseEntity{
 
 
