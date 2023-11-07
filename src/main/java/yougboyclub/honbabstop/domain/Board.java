@@ -51,9 +51,6 @@ public class Board extends BaseEntity{
     @Column(name = "PEOPLE_LIMIT")
     private int people_limit;
 
-    @Column(name = "GENDER_LIMIT")
-    private int gender_limit;
-
     @Column(name = "MAX_AGE")
     private int max_age;
 
