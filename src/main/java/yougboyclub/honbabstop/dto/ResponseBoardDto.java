@@ -25,7 +25,6 @@ public class ResponseBoardDto {
     private LocalDateTime last_modified;
     private int status;
     private int people_limit;
-    private int gender_limit;
     private int max_age;
     private int min_age;
 
@@ -45,7 +44,6 @@ public class ResponseBoardDto {
         this.last_modified=board.getLast_modified();
         this.status=board.getStatus();
         this.people_limit=board.getPeople_limit();
-        this.gender_limit=board.getGender_limit();
         this.max_age=board.getMax_age();
         this.min_age=board.getMin_age();
     }
