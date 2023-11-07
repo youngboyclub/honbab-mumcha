@@ -41,7 +41,6 @@ public class RequestBoardDto {
                 .hit(hit)
                 .status(status)
                 .people_limit(people_limit)
-                .gender_limit(gender_limit)
                 .max_age(max_age)
                 .min_age(min_age)
                 .build();
