@@ -4,6 +4,7 @@ package yougboyclub.honbabstop.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -21,7 +22,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreatedDate //JPA에서 엔티티의 생성 시간을 처리한다.
+    @CreationTimestamp //JPA에서 엔티티의 생성 시간을 처리한다.
     @Column(name = "reg_date", updatable = false) //updatable = false => 생성시간을 변경하지 않음.
     private LocalDateTime regDate;
 
