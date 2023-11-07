@@ -5,7 +5,7 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,12 +16,10 @@ public class RequestBoardDto {
     private Long restaurant_no;
     private Long file_id;
     private String food_theme;
-    private LocalDate reg_date;
     private String title;
     private String content;
     private User writer;
     private Long hit;
-    private LocalDate last_modified;
     private int status;
     private int people_limit;
     private int gender_limit;
@@ -37,15 +35,12 @@ public class RequestBoardDto {
                 .restaurant_no(restaurant_no)
                 .file_id(file_id)
                 .food_theme(food_theme)
-                .reg_date(reg_date)
                 .title(title)
                 .content(content)
                 .writer(writer)
                 .hit(hit)
-                .last_modified(last_modified)
                 .status(status)
                 .people_limit(people_limit)
-                .gender_limit(gender_limit)
                 .max_age(max_age)
                 .min_age(min_age)
                 .build();
