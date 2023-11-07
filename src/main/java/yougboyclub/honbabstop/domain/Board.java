@@ -18,14 +18,16 @@ import java.time.LocalDateTime;
 @AttributeOverride(name = "id", column = @Column(name = "board_no"))
 @ToString
 public class Board extends BaseEntity{
-    @Column(name = "RESTAURANT_NO")
-    private Long restaurant_no;
+//    @Column(name = "RESTAURANT_NO")
+//    private Long restaurant_no;
+    @Column(name = "RESTAURANT_NAME")
+    private String restaurantName;
 
-    @Column(name = "FILE_ID")
-    private Long file_id;
+    @Column(name = "RESTAURANT_ADDRESS")
+    private String restaurantAddress;
 
-    @Column(name = "FOOD_THEME")
-    private String food_theme;
+    @Column(name = "FOOD_CATEGORY")
+    private String foodCategory;
 
     @Column(name = "TITLE")
     private String title;
@@ -49,12 +51,5 @@ public class Board extends BaseEntity{
     private int status;
 
     @Column(name = "PEOPLE_LIMIT")
-    private int people_limit;
-
-    @Column(name = "MAX_AGE")
-    private int max_age;
-
-    @Column(name = "MIN_AGE")
-    private int min_age;
-
+    private int peopleLimit;
 }
