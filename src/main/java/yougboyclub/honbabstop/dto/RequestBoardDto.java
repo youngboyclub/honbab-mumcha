@@ -16,7 +16,6 @@ public class RequestBoardDto {
     private Long restaurant_no;
     private Long file_id;
     private String food_theme;
-    private LocalDate reg_date;
     private String title;
     private String content;
     private User writer;
@@ -37,7 +36,6 @@ public class RequestBoardDto {
                 .restaurant_no(restaurant_no)
                 .file_id(file_id)
                 .food_theme(food_theme)
-                .reg_date(reg_date)
                 .title(title)
                 .content(content)
                 .writer(writer)

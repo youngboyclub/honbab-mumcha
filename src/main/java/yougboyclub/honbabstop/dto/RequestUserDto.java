@@ -6,7 +6,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import yougboyclub.honbabstop.domain.User;
 
-import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

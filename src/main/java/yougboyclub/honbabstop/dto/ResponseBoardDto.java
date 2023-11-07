@@ -6,6 +6,7 @@ import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class ResponseBoardDto {
     private Long restaurant_no;
     private Long file_id;
     private String food_theme;
-    private LocalDate reg_date;
+    private LocalDateTime regdate;
     private String title;
     private String content;
     private User writer;
@@ -37,7 +38,7 @@ public class ResponseBoardDto {
         this.restaurant_no=board.getRestaurant_no();
         this.file_id=board.getFile_id();
         this.food_theme=board.getFood_theme();
-        this.reg_date=board.getReg_date();
+        this.regdate=board.getRegDate();
         this.title=board.getTitle();
         this.content=board.getContent();
         this.writer=board.getWriter();

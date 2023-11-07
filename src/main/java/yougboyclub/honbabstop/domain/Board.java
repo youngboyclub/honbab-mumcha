@@ -25,9 +25,6 @@ public class Board extends BaseEntity{
     @Column(name = "FOOD_THEME")
     private String food_theme;
 
-    @Column(name = "REG_DATE")
-    private LocalDate reg_date;
-
     @Column(name = "TITLE")
     private String title;
 
