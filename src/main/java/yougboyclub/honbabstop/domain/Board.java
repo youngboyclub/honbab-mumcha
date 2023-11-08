@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,14 +19,10 @@ import java.time.LocalDateTime;
 @AttributeOverride(name = "id", column = @Column(name = "board_no"))
 @ToString
 public class Board extends BaseEntity{
-    @Column(name = "RESTAURANT_NO")
-    private Long restaurant_no;
 
-    @Column(name = "FILE_ID")
-    private Long file_id;
-
-    @Column(name = "FOOD_THEME")
-    private String food_theme;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "USER_NO")
+    private User writer;
 
     @Column(name = "TITLE")
     private String title;
@@ -33,9 +30,26 @@ public class Board extends BaseEntity{
     @Column(name = "CONTENT")
     private String content;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "USER_NO")
-    private User writer;
+    @Column(name = "TIME")
+    private Time time;
+
+    @Column(name = "FOOD_CATEGORY")
+    private String foodCategory;
+
+    @Column(name = "PLACE_CATEGORY")
+    private String placeCategory;
+
+    @Column(name = "STATUS")
+    private int status;
+
+    @Column(name = "PEOPLE")
+    private int peopleLimit;
+
+    @Column(name = "RESTAURANT_NAME")
+    private String restaurantName;
+
+    @Column(name = "RESTAURANT_ADDRESS")
+    private String restaurantAddress;
 
     @Column(name = "HIT")
     private Long hit;
@@ -43,18 +57,5 @@ public class Board extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @UpdateTimestamp
     @Column(name="LAST_MODIFIED")
-    private LocalDateTime last_modified;
-
-    @Column(name = "STATUS")
-    private int status;
-
-    @Column(name = "PEOPLE_LIMIT")
-    private int people_limit;
-
-    @Column(name = "MAX_AGE")
-    private int max_age;
-
-    @Column(name = "MIN_AGE")
-    private int min_age;
-
+    private LocalDateTime lastModified;
 }
