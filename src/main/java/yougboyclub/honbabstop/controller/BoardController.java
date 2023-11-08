@@ -1,10 +1,10 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
+import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.service.BoardService;
 
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/board")
 @RequiredArgsConstructor
+@RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
 
