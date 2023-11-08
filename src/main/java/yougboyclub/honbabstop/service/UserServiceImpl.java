@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     private final RedisService redisService;
 
     @Value("180000")
-    private long authCodeExpirationMillis;
+    private long authCodeExpirationMillis; //인증코드 유효시간 (3분)
 
 
     //인증 코드를 생성 후 수신자 이메일로 발송
@@ -71,19 +71,18 @@ public class UserServiceImpl implements UserService{
     }
 
     //인증 코드를 검증
-    public Boolean verifiedCode(String email, String code) {
+    @Override
+    public void verifiedCode(String email, String code) {
         this.checkDuplicatedEmail(email); //이메일 중복체크 진행.
 
         String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email); //redis에 저장된 인증코드를 가져옴.
-        Boolean verifiedResult = false;
+        System.out.println("redisAuthCode = " + redisAuthCode);
 
-        //만약 두 코드가 동일하다면 true를,
-        // Redis에서 Code가 없거나 일치하지 않는다면 false를 반환.
-        if (redisAuthCode != null || redisAuthCode.equals(code)) {
-            verifiedResult = true;
+        // Redis에서 Code가 없거나 일치하지 않는다면 예외를 반환.
+        if (redisAuthCode == null || !redisAuthCode.equals(code)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "인증 코드가 틀렸습니다. 다시 입력해주세요.");
         }
 
-        return verifiedResult;
     }
 
     //회원가입 (save)

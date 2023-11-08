@@ -12,7 +12,7 @@ public interface UserService {
     void sendCodeToEmail(String toEmail);
 
     //이메일 인증코드 확인
-    Boolean verifiedCode(String email, String code);
+    void verifiedCode(String email, String code);
 
 
 }
