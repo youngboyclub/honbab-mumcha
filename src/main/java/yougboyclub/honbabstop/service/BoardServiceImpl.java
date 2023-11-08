@@ -25,6 +25,11 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<Board> findByPlaceCategory(String placeCategory) {
+        return boardRepository.findByPlaceCategory(placeCategory);
+    }
+
+    @Override
     public Board createBoard(RequestBoardDto requestBoardDto) {
         Board board = requestBoardDto.toEntity();
         return boardRepository.save(board);
