@@ -18,10 +18,11 @@ public class RedisService {
 
     public void setValues(String key, String value, Duration expiration) {
         redisTemplate.opsForValue().set(key, value, expiration);
+        System.out.println("key = " + key);
+        System.out.println("value = " + value);
     }
 
     //key 파라미터로 받아 key를 기반으로 데이터를 조회한다.
-    @Transactional(readOnly = true)
     public String getValues(String key) {
         ValueOperations<String, Object> values = redisTemplate.opsForValue();
         if (values.get(key) == null) {

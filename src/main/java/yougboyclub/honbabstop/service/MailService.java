@@ -29,9 +29,9 @@ public class MailService {
     private SimpleMailMessage createEmailForm(String toEmail, String title, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo(toEmail);
-        message.setSubject(title);
-        message.setText(text);
+        message.setTo(toEmail); //수신자 이메일 주소
+        message.setSubject(title); //이메일 제목
+        message.setText(text); //이메일 내용
 
         return message;
     }
