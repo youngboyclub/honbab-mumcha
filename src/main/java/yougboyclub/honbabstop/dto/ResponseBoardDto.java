@@ -7,6 +7,7 @@ import yougboyclub.honbabstop.domain.User;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class ResponseBoardDto {
     private User writer;
     private String title;
     private String content;
-    private Time time;
+    private LocalTime time;
     private String foodCategory;
     private String placeCategory;
     private int status;

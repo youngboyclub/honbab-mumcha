@@ -8,8 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class Board extends BaseEntity{
     private String content;
 
     @Column(name = "TIME")
-    private Time time;
+    private LocalTime time;
 
     @Column(name = "FOOD_CATEGORY")
     private String foodCategory;
