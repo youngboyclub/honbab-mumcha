@@ -4,6 +4,7 @@ package yougboyclub.honbabstop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
+import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.repository.BoardRepository;
 
 import java.util.List;
@@ -16,5 +17,11 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public List<Board> findAllBoard() {
         return boardRepository.findAll();
+    }
+
+    @Override
+    public Board createBoard(RequestBoardDto requestBoardDto) {
+        Board board = requestBoardDto.toEntity();
+        return boardRepository.save(board);
     }
 }
