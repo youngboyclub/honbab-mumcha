@@ -2,10 +2,12 @@ package yougboyclub.honbabstop.domain;
 
 
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -13,17 +15,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "PARTYBOARD")
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "board_id"))
+@AttributeOverride(name = "id", column = @Column(name = "board_no"))
 @ToString
 public class Board extends BaseEntity{
-    @Column(name = "RESTAURANT_NO")
-    private Long restaurant_no;
 
-    @Column(name = "FILE_ID")
-    private Long file_id;
-
-    @Column(name = "FOOD_THEME")
-    private String food_theme;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "USER_NO")
+    private User writer;
 
     @Column(name = "TITLE")
     private String title;
@@ -31,30 +29,34 @@ public class Board extends BaseEntity{
     @Column(name = "CONTENT")
     private String content;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "USER_NO")
-    private User writer;
+    @Column(name = "TIME")
+    private Time time;
 
-    @Column(name = "HIT")
-    private Long hit;
+    @Column(name = "FOOD_CATEGORY")
+    private String foodCategory;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="LAST_MODIFIED")
-    private LocalDate last_modified;
+    @Column(name = "PLACE_CATEGORY")
+    private String placeCategory;
 
     @Column(name = "STATUS")
     private int status;
 
-    @Column(name = "PEOPLE_LIMIT")
-    private int people_limit;
+    @Column(name = "PEOPLE")
+    private int peopleLimit;
 
-    @Column(name = "GENDER_LIMIT")
-    private int gender_limit;
+    @Column(name = "RESTAURANT_NAME")
+    private String restaurantName;
 
-    @Column(name = "MAX_AGE")
-    private int max_age;
+    @Column(name = "RESTAURANT_ADDRESS")
+    private String restaurantAddress;
 
-    @Column(name = "MIN_AGE")
-    private int min_age;
+    @Column(name = "HIT")
+    private Long hit;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @UpdateTimestamp
+    @Column(name="LAST_MODIFIED")
+    private LocalDateTime lastModified;
+
 
 }
