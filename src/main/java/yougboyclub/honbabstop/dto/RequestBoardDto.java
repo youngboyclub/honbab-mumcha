@@ -5,6 +5,7 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -14,15 +15,17 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 public class RequestBoardDto {
-    private String restaurantName;
-    private String restaurantAddress;
-    private String foodCategory;
+    private User writer;
     private String title;
     private String content;
-    private User writer;
-    private Long hit;
+    private Time time;
+    private String foodCategory;
+    private String placeCategory;
     private int status;
-    private int peopleLimit;
+    private int people;
+    private String restaurantName;
+    private String restaurantAddress;
+    private Long hit;
 
     public RequestBoardDto(Long id) {
     }
@@ -30,15 +33,17 @@ public class RequestBoardDto {
 
     public Board toEntity() {
         return Board.builder()
-                .restaurantName(restaurantName)
-                .restaurantAddress(restaurantAddress)
-                .foodCategory(foodCategory)
+                .writer(writer)
                 .title(title)
                 .content(content)
-                .writer(writer)
-                .hit(hit)
+                .time(time)
+                .foodCategory(foodCategory)
+                .placeCategory(placeCategory)
                 .status(status)
-                .peopleLimit(peopleLimit)
+                .people(people)
+                .restaurantName(restaurantName)
+                .restaurantAddress(restaurantAddress)
+                .hit(hit)
                 .build();
     };
 }
