@@ -14,6 +14,7 @@ import yougboyclub.honbabstop.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
     //회원가입
     @PostMapping("/new")
     public ResponseEntity<String> join(@RequestBody RequestUserDto dto){
