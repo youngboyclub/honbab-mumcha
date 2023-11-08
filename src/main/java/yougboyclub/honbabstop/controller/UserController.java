@@ -3,12 +3,13 @@ package yougboyclub.honbabstop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import yougboyclub.honbabstop.dto.RequestEmailCodeVerificationDto;
 import yougboyclub.honbabstop.dto.RequestUserDto;
+import yougboyclub.honbabstop.dto.RequestUserEmailDto;
 import yougboyclub.honbabstop.service.UserService;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,6 +17,26 @@ import yougboyclub.honbabstop.service.UserService;
 public class UserController {
 
     private final UserService userService;
+
+    //이메일 인증코드 발송
+    @PostMapping("/emails/authenticationRequest")
+    public ResponseEntity<String> sendMessage(@RequestBody RequestUserEmailDto toEmailDto) {
+        String toEmail = toEmailDto.getEmail();
+        userService.sendCodeToEmail(toEmail);
+
+        return ResponseEntity.status(HttpStatus.OK).body("인증코드가 발송되었습니다.");
+    }
+
+    //인증코드 인증 확인
+    @GetMapping("/emails/codeChecked")
+    public ResponseEntity<String> verificationEmailCode(@RequestBody RequestEmailCodeVerificationDto verificationDto) {
+        Boolean verifiedCheck = userService.verifiedCode(verificationDto.getEmail(), verificationDto.getAuthCode());
+
+        if(verifiedCheck) {
+            return ResponseEntity.status(HttpStatus.OK).body("인증이 완료되었습니다."); //200
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증에 실패하였습니다."); //401
+    }
 
     //회원가입
     @PostMapping("/new")
