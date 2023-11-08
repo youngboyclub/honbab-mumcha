@@ -6,13 +6,12 @@ import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.repository.BoardRepository;
-
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
-    private final BoardRepository boardRepository;
+    private final BoardRepository boardRepository ;
 
     @Override
     public List<Board> findAllBoard() {
