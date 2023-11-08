@@ -12,38 +12,33 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@Builder
 public class RequestBoardDto {
-    private Long restaurant_no;
-    private Long file_id;
-    private String food_theme;
+    private String restaurantName;
+    private String restaurantAddress;
+    private String foodCategory;
     private String title;
     private String content;
     private User writer;
     private Long hit;
     private int status;
-    private int people_limit;
-    private int gender_limit;
-    private int max_age;
-    private int min_age;
+    private int peopleLimit;
 
     public RequestBoardDto(Long id) {
     }
 
-    @Builder
+
     public Board toEntity() {
-        Board board = Board.builder()
-                .restaurant_no(restaurant_no)
-                .file_id(file_id)
-                .food_theme(food_theme)
+        return Board.builder()
+                .restaurantName(restaurantName)
+                .restaurantAddress(restaurantAddress)
+                .foodCategory(foodCategory)
                 .title(title)
                 .content(content)
                 .writer(writer)
                 .hit(hit)
                 .status(status)
-                .people_limit(people_limit)
-                .max_age(max_age)
-                .min_age(min_age)
+                .peopleLimit(peopleLimit)
                 .build();
-        return board;
     };
 }

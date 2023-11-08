@@ -29,4 +29,5 @@ public class BoardController {
         //mov.addObject("boardDtos",boardDtos);
         return boardDtos;
     }
+
 }
