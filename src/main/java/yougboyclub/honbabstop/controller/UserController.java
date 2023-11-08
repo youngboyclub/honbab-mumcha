@@ -28,14 +28,11 @@ public class UserController {
     }
 
     //인증코드 인증 확인
-    @GetMapping("/emails/codeChecked")
+    @PostMapping("/emails/codeChecked")
     public ResponseEntity<String> verificationEmailCode(@RequestBody RequestEmailCodeVerificationDto verificationDto) {
-        Boolean verifiedCheck = userService.verifiedCode(verificationDto.getEmail(), verificationDto.getAuthCode());
+        userService.verifiedCode(verificationDto.getEmail(), verificationDto.getAuthCode());
 
-        if(verifiedCheck) {
-            return ResponseEntity.status(HttpStatus.OK).body("인증이 완료되었습니다."); //200
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증에 실패하였습니다."); //401
+        return ResponseEntity.status(HttpStatus.OK).body("인증이 완료되었습니다."); //200
     }
 
     //회원가입
