@@ -42,7 +42,7 @@ public class Board extends BaseEntity{
     private int status;
 
     @Column(name = "PEOPLE")
-    private int peopleLimit;
+    private int people;
 
     @Column(name = "RESTAURANT_NAME")
     private String restaurantName;
