@@ -19,6 +19,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -42,4 +43,7 @@ cloud:
       bucket: honbab-bucket
     credentials:
       access-key: AKIA2KZERIL2JJ4HOFVL
+
       secret-key: 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
+
+
