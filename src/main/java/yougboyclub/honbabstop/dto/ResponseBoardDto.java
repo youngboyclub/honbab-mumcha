@@ -35,7 +35,7 @@ public class ResponseBoardDto {
   private int status; //모집글의 상태 0:모집 완료, 1:모집 중, -1:완료
   private LocalDateTime regDate;
   private LocalDateTime lastModified;
-  private List<ResponseParticipant> joinUser;  // 신청자 리스트
+//  private List<ResponseParticipant> joinUser;  // 신청자 리스트
 
   //생성자
   public ResponseBoardDto(Board board) {
@@ -52,8 +52,8 @@ public class ResponseBoardDto {
     this.status = 1;
     this.regDate = board.getRegDate();
     this.lastModified = board.getLastModified();
-    this.joinUser = Participants.getJoins().stream().map(
-        ResponseParticipant::new).collect(Collectors.toList());
+//    this.joinUser = Participants.getJoins().stream().map(
+//        ResponseParticipant::new).collect(Collectors.toList());
   }
 
 }
