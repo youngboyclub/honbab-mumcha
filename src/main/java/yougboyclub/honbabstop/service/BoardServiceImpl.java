@@ -31,6 +31,17 @@ public class BoardServiceImpl implements BoardService{
         return boardRepository.findAll();
     }
 
+
+    @Override
+    public List<Board> findByFoodCategory(String foodCategory) {
+        return boardRepository.findByFoodCategory(foodCategory);
+    }
+
+    @Override
+    public List<Board> findByPlaceCategory(String placeCategory) {
+        return boardRepository.findByPlaceCategory(placeCategory);
+    }
+
     @Override
     public Board createBoard(RequestBoardDto requestBoardDto) {
         Optional<User> byId = userRepository.findById(1L);
@@ -44,6 +55,13 @@ public class BoardServiceImpl implements BoardService{
         Board board = requestBoardDto.toEntity();
         board.setWriter(user);
         return boardRepository.save(board);
+    }
+
+
+    // 내가 작성한 글 조회 메서드
+    @Override
+    public List<Board> findByWriter(User user) {
+        return boardRepository.findByWriter(user);
     }
 
     @Override
