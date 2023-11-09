@@ -6,6 +6,7 @@ import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class RequestBoardDto {
   private String restaurantAddress;
   private User writer;
   private String foodCategory;
-  private LocalDate time;
+  private LocalTime time;
   private int people;
   private String title;
   private String content;
@@ -34,7 +35,7 @@ public class RequestBoardDto {
         .title(title)
         .content(content)
         .hit(hit)
-        .status(1)
+        .status(status)
         .build();
   }
 }

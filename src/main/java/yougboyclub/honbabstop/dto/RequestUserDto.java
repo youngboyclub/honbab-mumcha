@@ -7,7 +7,7 @@ import yougboyclub.honbabstop.domain.User;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
 public class RequestUserDto {
