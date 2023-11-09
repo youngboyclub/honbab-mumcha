@@ -8,8 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class Board extends BaseEntity{
     private String content;
 
     @Column(name = "TIME")
-    private Time time;
+    private LocalTime time;
 
     @Column(name = "FOOD_CATEGORY")
     private String foodCategory;
@@ -42,7 +44,7 @@ public class Board extends BaseEntity{
     private int status;
 
     @Column(name = "PEOPLE")
-    private int peopleLimit;
+    private int people;
 
     @Column(name = "RESTAURANT_NAME")
     private String restaurantName;
@@ -58,5 +60,16 @@ public class Board extends BaseEntity{
     @Column(name="LAST_MODIFIED")
     private LocalDateTime lastModified;
 
+
+    public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress){
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.foodCategory = foodCategory;
+        this.placeCategory = placeCategory;
+        this.people = people;
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+    }
 
 }

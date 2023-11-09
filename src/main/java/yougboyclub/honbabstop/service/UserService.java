@@ -7,4 +7,6 @@ public interface UserService {
 
     //회원가입 (save)
     User save(RequestUserDto userDto);
+
+    User findById(Long id);
 }

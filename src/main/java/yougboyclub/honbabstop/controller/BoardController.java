@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
+import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
 
 import java.util.List;
@@ -33,9 +34,18 @@ public class BoardController {
     @PostMapping("/new")
     public ResponseEntity<String> createBoard(@RequestBody RequestBoardDto dto){
         System.out.println("dto = " + dto);
-        // 파일 처리 로직(현재는 받기만 하고 있음)
+
         boardService.createBoard(dto);
 
         return ResponseEntity.ok().body("게시글 등록에 성공하였습니다");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request) {
+        Board updateBoard = boardService.update(id, request);
+
+        return ResponseEntity.ok().body(updateBoard);
+    }
+
 }
+
