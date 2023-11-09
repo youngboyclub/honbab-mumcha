@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@ToString
 public class RequestEmailCodeVerificationDto {
     @Email
     private String email;
