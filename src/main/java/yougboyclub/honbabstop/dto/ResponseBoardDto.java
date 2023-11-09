@@ -49,7 +49,7 @@ public class ResponseBoardDto {
     this.title = board.getTitle();
     this.content = board.getContent();
     this.hit = board.getHit();
-    this.status = 1;
+    this.status = board.getStatus();
     this.regDate = board.getRegDate();
     this.lastModified = board.getLastModified();
 //    this.joinUser = Participants.getJoins().stream().map(

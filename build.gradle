@@ -41,7 +41,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	runtimeOnly 'org.webjars:webjars-locator-core'
-
 }
 
 tasks.named('test') {

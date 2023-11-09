@@ -38,7 +38,7 @@ public class RequestBoardDto {
                 .time(time)
                 .foodCategory(foodCategory)
                 .placeCategory(placeCategory)
-                .status(1)
+                .status(status)
                 .people(people)
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)

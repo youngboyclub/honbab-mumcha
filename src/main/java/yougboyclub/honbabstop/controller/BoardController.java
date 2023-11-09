@@ -24,6 +24,9 @@ public class BoardController {
         List<ResponseBoardDto> boardDtos=boards.stream()
                 .map(board -> new ResponseBoardDto(board))
                 .collect(Collectors.toList());
+
+        System.out.println("여기까지 오느라 수고했어1::"+boards);
+        System.out.println("여기까지 오느라 수고했어2::"+boardDtos);
         return boardDtos;
     }
 
