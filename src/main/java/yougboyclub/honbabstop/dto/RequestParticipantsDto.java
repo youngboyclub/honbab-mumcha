@@ -12,7 +12,9 @@ import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Getter
+@ToString
 public class RequestParticipantsDto {
   private Long participantsNo;  //참가 번호
   private Long boardNo;         //해당 게시글 번호

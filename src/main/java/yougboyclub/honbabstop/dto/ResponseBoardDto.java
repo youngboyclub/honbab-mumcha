@@ -43,24 +43,11 @@ public class ResponseBoardDto {
     this.title = board.getTitle();
     this.content = board.getContent();
     this.hit = board.getHit();
-    this.status = 1;
+    this.status =board.getStatus();
     this.regDate = board.getRegDate();
     this.lastModified = board.getLastModified();
 //    this.joinUser = Participants.getJoins().stream().map(
 //        ResponseParticipant::new).collect(Collectors.toList());
   }
 
-//  //게시글의 모집 상태(int)를 한글로 변환하는 메소드
-//  public String changeStatusToKorean(int status) {
-//    if (status == 1) {
-//      return "모집중";
-//    }
-//    if (status == 0) {
-//      return "모집 완료";
-//    }
-//    if (status == -1) {
-//      return "모집 종료";
-//    }
-//    return time.toString();
-//  }
 }

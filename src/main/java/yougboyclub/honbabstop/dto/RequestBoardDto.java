@@ -34,7 +34,7 @@ public class RequestBoardDto {
         .title(title)
         .content(content)
         .hit(hit)
-        .status(1)
+        .status(status)
         .build();
   }
 }

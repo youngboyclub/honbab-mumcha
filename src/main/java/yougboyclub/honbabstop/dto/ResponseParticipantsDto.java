@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Getter
 @ToString
 public class ResponseParticipantsDto {
