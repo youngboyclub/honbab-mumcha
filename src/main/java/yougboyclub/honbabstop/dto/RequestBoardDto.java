@@ -25,6 +25,8 @@ public class RequestBoardDto {
     private String restaurantName;
     private String restaurantAddress;
     private Long hit;
+    private String locationX;
+    private String locationY;
 
     public RequestBoardDto(Long id) {
     }
@@ -43,6 +45,8 @@ public class RequestBoardDto {
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)
                 .hit(hit)
+                .locationX(locationX)
+                .locationY(locationY)
                 .build();
     };
 }
