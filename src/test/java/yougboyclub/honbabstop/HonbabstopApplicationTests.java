@@ -15,16 +15,21 @@ import yougboyclub.honbabstop.service.UserService;
 import java.util.Date;
 import java.util.List;
 
+
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 class HonbabstopApplicationTests {
-
 
 	@Autowired
 	BoardService boardService;
 	@Autowired
 	UserService userService;
+
 	@Test
-	void contextLoads() {
+	void test_find_board_by_foodcategory() {
+		List<Board> boards = boardService.findByFoodCategory("양식");
+		assertNotNull(boards,"Boards ard not null");
 	}
 
 	@Test
