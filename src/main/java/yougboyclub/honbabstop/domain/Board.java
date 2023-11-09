@@ -6,10 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Builder
@@ -33,7 +31,7 @@ public class Board extends BaseEntity {
 
   //모임 날짜와 시간이 담기는 필드
   @Column(name = "time")
-  private LocalTime time;
+  private LocalDate time;
 
   @Column(name = "food_category")
   private String foodCategory;
@@ -44,26 +42,22 @@ public class Board extends BaseEntity {
   @Column(name = "status")
   private int status;
 
-  @Column(name = "people")
+  @Column(name = "PEOPLE")
   private int people;
 
-  @Column(name = "restaurant_name")
+  @Column(name = "RESTAURANT_NAME")
   private String restaurantName;
 
-  @Column(name = "restaurant_address")
+  @Column(name = "RESTAURANT_ADDRESS")
   private String restaurantAddress;
 
-  @Column(name = "hit")
+  @Column(name = "HIT")
   private Long hit;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
   @UpdateTimestamp
-  @Column(name = "last_modified")
+  @Column(name = "LAST_MODIFIED")
   private LocalDateTime lastModified;
-
-  @OneToMany(mappedBy = "partyboard")
-  private List<Participants> applications;  //모집글에 작성된 참가신청
-
 
   // 조회수 증가
   public void increaseHit(User writer) {
