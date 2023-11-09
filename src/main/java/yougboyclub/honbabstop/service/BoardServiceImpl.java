@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
+import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +43,14 @@ public class BoardServiceImpl implements BoardService{
         Board board = requestBoardDto.toEntity();
         board.setWriter(user);
         return boardRepository.save(board);
+    }
+
+    @Override
+    @Transactional
+    public Board update(long id, UpdateBoardRequest request) {
+        Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress());
+        return board;
     }
 }

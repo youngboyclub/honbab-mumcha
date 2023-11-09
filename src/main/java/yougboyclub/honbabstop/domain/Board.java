@@ -61,4 +61,15 @@ public class Board extends BaseEntity{
     private LocalDateTime lastModified;
 
 
+    public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress){
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.foodCategory = foodCategory;
+        this.placeCategory = placeCategory;
+        this.people = people;
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+    }
+
 }
