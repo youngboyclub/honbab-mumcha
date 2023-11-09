@@ -46,9 +46,12 @@ public class UserController {
 
     //회원가입
     @PostMapping("/new")
-    public ResponseEntity<String> join(@RequestBody RequestUserDto dto){
+    public ResponseEntity<String> join(@RequestBody @Validated RequestUserDto dto, BindingResult bindingResult){
         System.out.println("dto = " + dto);
-
+        //입력받은 정보 중 필수정보나 형식에 맞지 않을 시, 에러 반환.
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입에 필요한 정보가 부족하거나 형식이 틀렸습니다. 다시 확인해주세요.");
+        }
         userService.save(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 성공하였습니다.");
