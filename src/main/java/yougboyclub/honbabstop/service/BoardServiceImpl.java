@@ -31,6 +31,7 @@ public class BoardServiceImpl implements BoardService{
         return boardRepository.findAll();
     }
 
+
     @Override
     public List<Board> findByFoodCategory(String foodCategory) {
         return boardRepository.findByFoodCategory(foodCategory);
@@ -54,6 +55,13 @@ public class BoardServiceImpl implements BoardService{
         Board board = requestBoardDto.toEntity();
         board.setWriter(user);
         return boardRepository.save(board);
+    }
+
+
+    // 내가 작성한 글 조회 메서드
+    @Override
+    public List<Board> findByWriter(User user) {
+        return boardRepository.findByWriter(user);
     }
 
     @Override

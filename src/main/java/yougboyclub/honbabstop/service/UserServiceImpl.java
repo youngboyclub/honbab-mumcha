@@ -24,10 +24,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(savedUser);
     }
 
+    // 유저 1명 찾기
     @Override
     public User findById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-
-        return optionalUser.orElse(null);
+        if(optionalUser.isPresent()) { //optional 내부의 값이 유효하면
+            return optionalUser.get(); //optional 내부에서 해당 객체를 꺼냄
+        } else {
+            // 예외 던지기
+            return null;
+        }
     }
+
 }
