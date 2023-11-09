@@ -8,8 +8,10 @@ import yougboyclub.honbabstop.dto.RequestBoardDto;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -29,9 +31,8 @@ public class Board extends BaseEntity {
   @Column(name = "content")
   private String content;
 
-  //모임 날짜와 시간이 담기는 필드
-  @Column(name = "time")
-  private LocalDate time;
+  @Column(name = "TIME")
+  private LocalTime time;
 
   @Column(name = "food_category")
   private String foodCategory;
@@ -66,12 +67,25 @@ public class Board extends BaseEntity {
     }
   }
 
-  //게시글 수정 / 제목, 내용, 인원, 식당 이름, 식당 주소 변경
-  public void update(RequestBoardDto request) {
-    this.title = request.getTitle();
-    this.content = request.getContent();
-    this.people = request.getPeople();
-    this.restaurantName = request.getRestaurantName();
-    this.restaurantAddress = request.getRestaurantAddress();
-  }
+//   //게시글 수정 / 제목, 내용, 인원, 식당 이름, 식당 주소 변경
+//   public void update(RequestBoardDto request) {
+//     this.title = request.getTitle();
+//     this.content = request.getContent();
+//     this.people = request.getPeople();
+//     this.restaurantName = request.getRestaurantName();
+//     this.restaurantAddress = request.getRestaurantAddress();
+//   }
+// }
+
+    public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress){
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.foodCategory = foodCategory;
+        this.placeCategory = placeCategory;
+        this.people = people;
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+    }
+
 }
