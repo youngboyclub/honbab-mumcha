@@ -5,17 +5,15 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Builder
+@Getter
+@ToString
 public class RequestBoardDto {
+
     private User writer;
     private String title;
     private String content;
@@ -40,7 +38,7 @@ public class RequestBoardDto {
                 .time(time)
                 .foodCategory(foodCategory)
                 .placeCategory(placeCategory)
-                .status(status)
+                .status(1)
                 .people(people)
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)
@@ -48,3 +46,4 @@ public class RequestBoardDto {
                 .build();
     };
 }
+

@@ -10,7 +10,6 @@ import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
-
 import javax.transaction.Transactional;
 import java.beans.Transient;
 import java.util.List;
@@ -19,8 +18,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
+
     @Autowired
     private final BoardRepository boardRepository;
+
 
     @Autowired
     private final UserRepository userRepository;
