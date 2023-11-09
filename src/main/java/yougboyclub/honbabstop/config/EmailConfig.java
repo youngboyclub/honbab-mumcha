@@ -19,16 +19,25 @@ public class EmailConfig {
     private boolean auth; // 인증 여부
 
     @Value("true")
-    private boolean starttls; // STARTTLS 사용 여부
+    private boolean starttlsEnable; // STARTTLS 사용 여부
 
     @Value("true")
-    private boolean startlls_required; // STARTTLS 필수 여부
+    private boolean starttlsRequired; // STARTTLS 필수 여부
 
     @Value("thkim610@gmail.com")
     private String id; // 관리자 이메일 계정 아이디
 
     @Value("klhffwdwthcvelzz")
     private String password; // 관리자 이메일 계정 비밀번호
+
+    @Value("${spring.mail.properties.mail.smtp.connectiontimeout}")
+    private int connectionTimeout; //클라이언트가 SMTP 서버와의 연결을 설정하는 데 대기해야 하는 시간
+
+    @Value("${spring.mail.properties.mail.smtp.timeout}")
+    private int timeout; //클라이언트가 SMTP 서버로부터 응답을 대기해야 하는 시간
+
+    @Value("${spring.mail.properties.mail.smtp.writetimeout}")
+    private int writeTimeout; //클라이언트가 작업을 완료하는데 대기해야 하는 시간
 
     @Bean //JavaMailSender 빈을 생성하는 메서드
     public JavaMailSender javaMailService() {
@@ -46,8 +55,12 @@ public class EmailConfig {
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", auth); // 인증 여부
-        properties.put("mail.smtp.starttls.enable", starttls); // STARTTLS 사용 여부
-        properties.put("mail.smtp.starttls.required", startlls_required); // STARTTLS 필수 여부
+        properties.put("mail.smtp.starttls.enable", starttlsEnable); // STARTTLS 사용 여부
+        properties.put("mail.smtp.starttls.required", starttlsRequired); // STARTTLS 필수 여부
+        properties.put("mail.smtp.connectiontimeout", connectionTimeout);
+        properties.put("mail.smtp.timeout", timeout);
+        properties.put("mail.smtp.writetimeout", writeTimeout);
+
         return properties;
     }
 }
