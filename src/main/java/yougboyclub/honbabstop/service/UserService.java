@@ -14,5 +14,6 @@ public interface UserService {
     //이메일 인증코드 확인
     void verifiedCode(String email, String code);
 
+    User findById(Long id);
 
 }

@@ -11,16 +11,16 @@ import org.springframework.web.server.ResponseStatusException;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 import yougboyclub.honbabstop.repository.UserRepository;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Random;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Getter
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -92,4 +92,17 @@ public class UserServiceImpl implements UserService{
         System.out.println("savedUser = " + savedUser);
         return userRepository.save(savedUser);
     }
+
+    // 유저 1명 찾기
+    @Override
+    public User findById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()) { //optional 내부의 값이 유효하면
+            return optionalUser.get(); //optional 내부에서 해당 객체를 꺼냄
+        } else {
+            // 예외 던지기
+            return null;
+        }
+    }
+
 }
