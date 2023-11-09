@@ -20,14 +20,10 @@ public class BoardController {
 
     @GetMapping
     public List<ResponseBoardDto> showBoardList(){
-        //ModelAndView mov = new ModelAndView("/boardList");
         List<Board> boards=boardService.findAllBoard();
         List<ResponseBoardDto> boardDtos=boards.stream()
                 .map(board -> new ResponseBoardDto(board))
                 .collect(Collectors.toList());
-        System.out.println("여기까지 오느라 수고했어1::"+boards);
-        System.out.println("여기까지 오느라 수고했어2::"+boardDtos);
-        //mov.addObject("boardDtos",boardDtos);
         return boardDtos;
     }
 
@@ -40,12 +36,35 @@ public class BoardController {
         return ResponseEntity.ok().body("게시글 등록에 성공하였습니다");
     }
 
+    @GetMapping("/food/{foodCategory}")
+    public List<ResponseBoardDto> showBoardListByFood(@PathVariable String foodCategory){
+        System.out.println("음식카테고리"+foodCategory);
+        List<Board> boards=boardService.findByFoodCategory(foodCategory);
+        List<ResponseBoardDto> boardDtos=boards.stream()
+                .map(board -> new ResponseBoardDto(board))
+                .collect(Collectors.toList());
+        System.out.println("여기까지 오느라 수고했어3::"+boards);
+        System.out.println("여기까지 오느라 수고했어4::"+boardDtos);
+        return boardDtos;
+    }
+
+    @GetMapping("/place/{placeCategory}")
+    public List<ResponseBoardDto> showBoardListByPlace(@PathVariable String placeCategory){
+        System.out.println("장소카테고리"+placeCategory);
+        List<Board> boards=boardService.findByPlaceCategory(placeCategory);
+        List<ResponseBoardDto> boardDtos=boards.stream()
+                .map(board -> new ResponseBoardDto(board))
+                .collect(Collectors.toList());
+        System.out.println("여기까지 오느라 수고했어5::"+boards);
+        System.out.println("여기까지 오느라 수고했어6::"+boardDtos);
+        return boardDtos;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request) {
         Board updateBoard = boardService.update(id, request);
 
         return ResponseEntity.ok().body(updateBoard);
     }
-
 }
 

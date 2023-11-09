@@ -32,6 +32,16 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<Board> findByFoodCategory(String foodCategory) {
+        return boardRepository.findByFoodCategory(foodCategory);
+    }
+
+    @Override
+    public List<Board> findByPlaceCategory(String placeCategory) {
+        return boardRepository.findByPlaceCategory(placeCategory);
+    }
+
+    @Override
     public Board createBoard(RequestBoardDto requestBoardDto) {
         Optional<User> byId = userRepository.findById(1L);
 
