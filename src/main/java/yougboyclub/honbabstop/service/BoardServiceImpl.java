@@ -21,16 +21,44 @@ public class BoardServiceImpl implements BoardService{
 
     @Autowired
     private final BoardRepository boardRepository;
-
-
+    
     @Autowired
     private final UserRepository userRepository;
+
+  //모집글 작성
+  @Override
+  public Board createBoard(RequestBoardDto requestBoardDto) {
+    Optional<User> byId = userRepository.findById(1L);
+
 
     @Override
     public List<Board> findAllBoard() {
         return boardRepository.findAll();
     }
 
+
+    User user = byId.get();
+
+    Board board = requestBoardDto.toEntity();
+    board.setWriter(user);
+    return boardRepository.save(board);
+  }
+
+  //모든 모집글 조회
+  @Override
+  public List<Board> findAllBoard() {
+    return boardRepository.findAll();
+  }
+
+  @Override
+  public String toString() {
+    return super.toString();
+  }
+
+  //모집글의 상세 정보 조회
+  public Board getBoardDetail(Long boardNo, User user) {
+    //boarNo의 게시물 가져오기
+    Board getBoard = boardRepository.findBoardByBoardNo(boardNo);
 
     @Override
     public List<Board> findByFoodCategory(String foodCategory) {
@@ -46,7 +74,8 @@ public class BoardServiceImpl implements BoardService{
     public Board createBoard(RequestBoardDto requestBoardDto) {
         Optional<User> byId = userRepository.findById(1L);
 
-        if (byId.isEmpty()) {
+        
+      if (byId.isEmpty()) {
             throw new IllegalArgumentException("Invalid userId: " + 1L);
         }
 
