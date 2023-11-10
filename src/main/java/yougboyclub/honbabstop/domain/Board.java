@@ -76,6 +76,7 @@ public class Board extends BaseEntity {
   private List<Participants> join; //이 모집글에 작성된 참가신청
 
   // 작성자 본인을 제외한 사용자가 게시물 들어가면 조회수 증가
+  // 조회수 증가
   public void increaseHit(User writer) {
     if (!this.writer.equals(writer)) {
       this.hit += 1;
