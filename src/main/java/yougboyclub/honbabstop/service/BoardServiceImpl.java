@@ -19,10 +19,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
-    @Autowired
     private final BoardRepository boardRepository;
 
-    @Autowired
     private final UserRepository userRepository;
 
     //모집글 작성

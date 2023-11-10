@@ -6,8 +6,6 @@ import yougboyclub.honbabstop.domain.User;
 
 import java.util.List;
 
-import java.util.List;
-
 public interface BoardRepository extends JpaRepository<Board,Long> {
 
     // 마이페이지에서 내가 쓴 글 조회
