@@ -6,28 +6,22 @@ import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.Participants;
 import yougboyclub.honbabstop.domain.User;
 
-
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
-import java.time.LocalTime;
-
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @ToString
 public class ResponseBoardDto {
-
   private Long boardId;
   private String restaurantName;
   private User writer;
   private String restaurantAddress;
   private String foodCategory;
-  private LocalTime time;
+  private LocalDate time;
   private int people;
   private String title;
   private String content;
@@ -49,7 +43,7 @@ public class ResponseBoardDto {
     this.title = board.getTitle();
     this.content = board.getContent();
     this.hit = board.getHit();
-    this.status = board.getStatus();
+    this.status =board.getStatus();
     this.regDate = board.getRegDate();
     this.lastModified = board.getLastModified();
 //    this.joinUser = Participants.getJoins().stream().map(
@@ -57,4 +51,3 @@ public class ResponseBoardDto {
   }
 
 }
-

@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Getter
 public class UpdateBoardRequest {
-    private Long boardId;
+//    private Long boardId;
     private User writer;
     private String title;
     private String content;
@@ -23,7 +23,7 @@ public class UpdateBoardRequest {
     private int people;
     private String restaurantName;
     private String restaurantAddress;
-    private LocalDateTime regDate;
-    private Long hit;
+//    private LocalDateTime regDate;
+//    private Long hit;
     private LocalDateTime lastModified;
 }
