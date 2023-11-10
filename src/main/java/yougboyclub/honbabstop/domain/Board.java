@@ -76,16 +76,6 @@ public class Board extends BaseEntity {
     }
   }
 
-//   //게시글 수정 / 제목, 내용, 인원, 식당 이름, 식당 주소 변경
-//   public void update(RequestBoardDto request) {
-//     this.title = request.getTitle();
-//     this.content = request.getContent();
-//     this.people = request.getPeople();
-//     this.restaurantName = request.getRestaurantName();
-//     this.restaurantAddress = request.getRestaurantAddress();
-//   }
-// }
-
     public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress){
         this.title = title;
         this.content = content;
@@ -96,5 +86,4 @@ public class Board extends BaseEntity {
         this.restaurantName = restaurantName;
         this.restaurantAddress = restaurantAddress;
     }
-
 }
