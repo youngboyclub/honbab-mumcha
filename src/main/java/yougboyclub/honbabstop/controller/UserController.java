@@ -28,7 +28,7 @@ public class UserController {
     public ResponseEntity<String> sendMessage(@RequestBody @Validated RequestUserEmailDto toEmailDto, BindingResult bindingResult) {
 
         //입력받은 이메일이 빈칸이 있거나 이메일형식이 아닐 시, 에러 반환.
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 형식이 맞지 않습니다.");
         }
 
@@ -48,10 +48,10 @@ public class UserController {
 
     //회원가입
     @PostMapping("/new")
-    public ResponseEntity<String> join(@RequestBody @Validated RequestUserDto dto, BindingResult bindingResult){
+    public ResponseEntity<String> join(@RequestBody @Validated RequestUserDto dto, BindingResult bindingResult) {
         System.out.println("dto = " + dto);
         //입력받은 정보 중 필수정보나 형식에 맞지 않을 시, 에러 반환.
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입에 필요한 정보가 부족하거나 형식이 틀렸습니다. 다시 확인해주세요.");
         }
         userService.save(dto);
@@ -66,7 +66,7 @@ public class UserController {
         System.out.println("일단 세션 확인부터" + session);
         try {
             User loginUser = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
-            System.out.println("loginUser" + loginUser);
+            System.out.println("loginUser:: " + loginUser);
             if (loginUser != null) {
                 // 로그인 성공
                 UserInfo userInfo = new UserInfo(loginUser.getName(), loginUser.getEmail());
