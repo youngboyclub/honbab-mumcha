@@ -5,7 +5,7 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -25,6 +25,9 @@ public class RequestBoardDto {
     private String restaurantName;
     private String restaurantAddress;
     private Long hit;
+    private int status;
+    private String locationX;
+    private String locationY;
 
     public RequestBoardDto(Long id) {
     }
@@ -38,12 +41,14 @@ public class RequestBoardDto {
                 .time(time)
                 .foodCategory(foodCategory)
                 .placeCategory(placeCategory)
-                .status(1)
+                .status(status)
                 .people(people)
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)
                 .hit(hit)
+                .status(status)
+                .locationX(locationX)
+                .locationY(locationY)
                 .build();
     };
 }
-

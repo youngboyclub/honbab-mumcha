@@ -4,28 +4,40 @@ package yougboyclub.honbabstop.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import yougboyclub.honbabstop.domain.User;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@ToString
 public class RequestUserDto {
 
+    @NotBlank //공백 없음
+    @Email//email 형식 맞추기
     private String email;
 
+    @NotNull
+    @NotBlank
     private String password;
 
+    @NotNull
     private String userName;
 
+    @NotNull
     //json의 날짜 형식을 변환.
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd")
     private LocalDate birth;
 
+    @NotNull
     private String phone;
 
+    @NotNull
     private String address;
 
+    @NotNull
     private String gender;
 
     private String mbti;
