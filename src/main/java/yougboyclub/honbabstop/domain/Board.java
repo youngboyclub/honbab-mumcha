@@ -60,11 +60,14 @@ public class Board extends BaseEntity {
   @Column(name = "LAST_MODIFIED")
   private LocalDateTime lastModified;
 
-  @Column(name = "location_x")
+
+  @Column(name = "LOCATION_X")
   private String locationX;
 
-  @Column(name = "location_y")
+  @Column(name = "LOCATION_Y")
   private String locationY;
+
+
 
   // 조회수 증가
   public void increaseHit(User writer) {
