@@ -5,7 +5,7 @@ import lombok.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -25,7 +25,6 @@ public class RequestBoardDto {
     private String restaurantName;
     private String restaurantAddress;
     private Long hit;
-    private int status;
     private String locationX;
     private String locationY;
 
@@ -46,9 +45,9 @@ public class RequestBoardDto {
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)
                 .hit(hit)
-                .status(status)
                 .locationX(locationX)
                 .locationY(locationY)
                 .build();
     };
 }
+

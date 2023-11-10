@@ -7,92 +7,69 @@ import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
-import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
-
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl implements BoardService{
 
-  @Autowired
-  private final BoardRepository boardRepository;
-
-  @Autowired
-  private final UserRepository userRepository;
+    @Autowired
+    private final BoardRepository boardRepository;
 
 
-  //모집글 작성
-  @Override
-  public Board createBoard(RequestBoardDto requestBoardDto) {
-    Optional<User> byId = userRepository.findById(1L);
+    @Autowired
+    private final UserRepository userRepository;
 
-    if (byId.isEmpty()) {
-      throw new IllegalArgumentException("Invalid userId: " + 1L);
+    @Override
+    public List<Board> findAllBoard() {
+        return boardRepository.findAll();
     }
 
-    User user = byId.get();
 
-    Board board = requestBoardDto.toEntity();
-    board.setWriter(user);
-    return boardRepository.save(board);
-  }
+    @Override
+    public List<Board> findByFoodCategory(String foodCategory) {
+        return boardRepository.findByFoodCategory(foodCategory);
+    }
 
-  //모든 게시글 조회
-  @Override
-  public List<Board> findAllBoard() {
-    return boardRepository.findAll();
-  }
+    @Override
+    public List<Board> findByPlaceCategory(String placeCategory) {
+        return boardRepository.findByPlaceCategory(placeCategory);
+    }
 
-  @Override
-  public String toString() {
-    return super.toString();
-  }
+    @Override
+    public Board createBoard(RequestBoardDto requestBoardDto) {
+        Optional<User> byId = userRepository.findById(1L);
 
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("Invalid userId: " + 1L);
+        }
 
-  public Board getBoardDetail(Long boardNo, User user) {
-    //boarNo의 게시물 가져오기
-    Board getBoard = boardRepository.findBoardByBoardNo(boardNo);
+        User user = byId.get();
 
-    //조회자!=작성자인 경우만 조회한 게시물의 조회수 올라감
-    getBoard.increaseHit(user);
-    return getBoard;
-  }
-
-  @Override
-  public List<Board> findByFoodCategory(String foodCategory) {
-    return boardRepository.findByFoodCategory(foodCategory);
-  }
-
-  @Override
-  public List<Board> findByPlaceCategory(String placeCategory) {
-    return boardRepository.findByPlaceCategory(placeCategory);
-  }
-
-  @Override
-  public List<Board> findByWriter(User writer) {
-    return boardRepository.findByWriter(writer);
-  }
-
-  //모집글 수정
-  @Override
-  public Board update(Long boardNo, UpdateBoardRequest request) {
-    Board board = boardRepository.findById(boardNo).orElseThrow(() -> new IllegalArgumentException("not found : " + boardNo));
-    board.update(request);
-    return board;
-  }
-
-  //모집글 삭제
-  public void deleteById(ResponseBoardDto res) {
-    Board getBoard = boardRepository.findBoardByBoardNo(res.getBoardId());
-    boardRepository.deleteById(getBoard.getId());
-  }
+        Board board = requestBoardDto.toEntity();
+        board.setWriter(user);
+        return boardRepository.save(board);
+    }
 
 
+    // 내가 작성한 글 조회 메서드
+    @Override
+    public List<Board> findByWriter(User user) {
+        return boardRepository.findByWriter(user);
+    }
+
+    @Override
+    @Transactional
+    public Board update(long id, UpdateBoardRequest request) {
+        Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress());
+        return board;
+    }
 }
-
-
