@@ -11,5 +11,4 @@ public class HonbabstopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HonbabstopApplication.class, args);
 	}
-
 }
