@@ -5,18 +5,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.domain.Likes;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
+import yougboyclub.honbabstop.service.LikesService;
+import yougboyclub.honbabstop.service.LikesServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@RestController
 public class BoardController {
+
   private final BoardService boardService;
 
   @GetMapping
@@ -30,6 +34,27 @@ public class BoardController {
     System.out.println("여기까지 오느라 수고했어2::" + boardDtos);
     return boardDtos;
   }
+
+    private final BoardService boardService;
+    private final LikesService likesService;
+
+    //모든 파티보드 찾기
+    @GetMapping
+    public List<Board> showBoardList(){
+        List<Board> boards=boardService.findAllBoard();
+        List<Likes> likes=likesService.findByUserNo(1L);
+        List<List> lists = null;
+        lists.add(boards);
+        lists.add(likes);
+        List<ResponseBoardDto> boardDtos=boards.stream()
+                .map(board -> new ResponseBoardDto(board))
+                .collect(Collectors.toList());
+
+        System.out.println("여기까지 오느라 수고했어1::"+boards);
+        System.out.println("여기까지 오느라 수고했어2::"+boardDtos);
+        return boards;
+    }
+
 
   @PostMapping("/new")
   public ResponseEntity<String> createBoard(@RequestBody RequestBoardDto dto) {

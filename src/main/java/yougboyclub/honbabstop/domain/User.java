@@ -3,7 +3,11 @@ package yougboyclub.honbabstop.domain;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,7 +17,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_no"))
-public class User extends BaseEntity{
+public class User extends BaseEntity implements Serializable {
 
 
     @Column(name = "user_email")
