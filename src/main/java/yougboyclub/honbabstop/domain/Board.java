@@ -60,6 +60,12 @@ public class Board extends BaseEntity {
   @Column(name = "LAST_MODIFIED")
   private LocalDateTime lastModified;
 
+  @Column(name = "location_x")
+  private String locationX;
+
+  @Column(name = "location_y")
+  private String locationY;
+
   // 조회수 증가
   public void increaseHit(User writer) {
     if (!this.writer.equals(writer)) {
