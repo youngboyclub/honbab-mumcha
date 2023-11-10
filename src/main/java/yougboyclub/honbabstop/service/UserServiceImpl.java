@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
     redisService.setValues(AUTH_CODE_PREFIX + toEmail,
-        authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+            authCode, Duration.ofMillis(this.authCodeExpirationMillis));
   }
 
   //이메일 중복 체크
@@ -104,21 +104,10 @@ public class UserServiceImpl implements UserService {
       // 예외 던지기
       return null;
     }
+  }
 
-    // 유저 1명 찾기
-    @Override
-    public User findById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if(optionalUser.isPresent()) { //optional 내부의 값이 유효하면
-            return optionalUser.get(); //optional 내부에서 해당 객체를 꺼냄
-        } else {
-            // 예외 던지기
-            return null;
-        }
-    }
-
-    @Override
-    public User findByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
-    }
+  @Override
+  public User findByEmailAndPassword(String email, String password) {
+    return userRepository.findByEmailAndPassword(email, password);
+  }
 }

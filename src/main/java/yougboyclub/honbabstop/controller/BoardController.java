@@ -1,6 +1,7 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
@@ -21,7 +22,10 @@ import java.util.stream.Collectors;
 @RestController
 public class BoardController {
 
+  @Autowired
   private final BoardService boardService;
+  @Autowired
+  private final LikesService likesService;
 
   @GetMapping
   public List<ResponseBoardDto> showBoardList() {
@@ -34,26 +38,6 @@ public class BoardController {
     System.out.println("여기까지 오느라 수고했어2::" + boardDtos);
     return boardDtos;
   }
-
-    private final BoardService boardService;
-    private final LikesService likesService;
-
-    //모든 파티보드 찾기
-    @GetMapping
-    public List<Board> showBoardList(){
-        List<Board> boards=boardService.findAllBoard();
-        List<Likes> likes=likesService.findByUserNo(1L);
-        List<List> lists = null;
-        lists.add(boards);
-        lists.add(likes);
-        List<ResponseBoardDto> boardDtos=boards.stream()
-                .map(board -> new ResponseBoardDto(board))
-                .collect(Collectors.toList());
-
-        System.out.println("여기까지 오느라 수고했어1::"+boards);
-        System.out.println("여기까지 오느라 수고했어2::"+boardDtos);
-        return boards;
-    }
 
 
   @PostMapping("/new")
@@ -88,7 +72,7 @@ public class BoardController {
   }
 
 
-  @GetMapping("/{id}")
+  @GetMapping("/api/{id}")
   public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
     Board updateBoard = boardService.update(id, request);
 
