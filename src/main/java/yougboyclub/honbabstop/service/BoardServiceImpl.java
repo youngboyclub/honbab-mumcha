@@ -25,7 +25,6 @@ public class BoardServiceImpl implements BoardService {
   @Autowired
   private final UserRepository userRepository;
 
-
   //모집글 작성
   @Override
   public Board createBoard(RequestBoardDto requestBoardDto) {
@@ -42,7 +41,7 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.save(board);
   }
 
-  //모든 게시글 조회
+  //모든 모집글 조회
   @Override
   public List<Board> findAllBoard() {
     return boardRepository.findAll();
@@ -53,7 +52,7 @@ public class BoardServiceImpl implements BoardService {
     return super.toString();
   }
 
-
+  //모집글의 상세 정보 조회
   public Board getBoardDetail(Long boardNo, User user) {
     //boarNo의 게시물 가져오기
     Board getBoard = boardRepository.findBoardByBoardNo(boardNo);
@@ -63,19 +62,22 @@ public class BoardServiceImpl implements BoardService {
     return getBoard;
   }
 
+  //음식 카테고리로 모집글 조회
   @Override
   public List<Board> findByFoodCategory(String foodCategory) {
     return boardRepository.findByFoodCategory(foodCategory);
   }
 
+  //장소 카테고리로 모집글 조회
   @Override
   public List<Board> findByPlaceCategory(String placeCategory) {
     return boardRepository.findByPlaceCategory(placeCategory);
   }
 
+  //내가 작성한 모든 모집글 조회
   @Override
-  public List<Board> findByWriter(User writer) {
-    return boardRepository.findByWriter(writer);
+  public List<Board> findByWriter(User user) {
+    return boardRepository.findAllBoard();
   }
 
   //모집글 수정
