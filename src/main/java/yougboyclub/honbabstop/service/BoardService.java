@@ -18,4 +18,6 @@ public interface BoardService {
     Board update(Long id, UpdateBoardRequest request);
 
     ResponseBoardDto getBoardDetail(Long id, User user);
+
+    List<Board> findByUserNonWriter(User user);
 }

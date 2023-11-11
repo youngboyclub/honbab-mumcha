@@ -10,6 +10,7 @@ import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
+import yougboyclub.honbabstop.repository.ParticipantsRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -25,6 +26,8 @@ public class BoardServiceImpl implements BoardService {
 
   @Autowired
   private final UserRepository userRepository;
+
+  private final ParticipantsRepository participantsRepository;
 
   //모집글 작성
   @Override
@@ -77,5 +80,12 @@ public class BoardServiceImpl implements BoardService {
     Board board = boardRepository.getReferenceById(id);
     ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
     return responseBoardDto;
+  }
+
+
+  @Override
+  public List<Board> findByUserNonWriter(User user) {
+
+    return participantsRepository.findByUserNonWriter(user);
   }
 }

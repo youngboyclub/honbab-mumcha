@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/my")
+@RequestMapping("/api/my")
 @RequiredArgsConstructor
 public class MypageController {
 
@@ -24,13 +24,24 @@ public class MypageController {
 
     // User에 대한 정보를 받아 Id를 조회해서 본인이 작성한 글을 조회하기 컨트롤러
     //RequestParm으로 해보기
-    @PostMapping
-    public List<ResponseBoardDto> showMyBoard (@RequestBody User user) {
-        System.out.println("user = " + user.getEmail());
+    @GetMapping
+    public List<ResponseBoardDto> showMyBoard (@RequestParam String email) {
+        //get요청으로 받아오면 param으로 넘겨 받아야함
 
-        User userId = userService.findById(1L);
+
+        System.out.println("email = " + email);
+
+
+        User userId = userService.findByEmail(email);
+        List<Board> party = boardService.findByUserNonWriter(userId);
+        System.out.println("party = " + party.size());
+
+        for (Board board : party) {
+            System.out.println("여기 확인~~~!!!!!!@@@@@@@@");
+            System.out.println(board.getTitle());
+        }
+
         List<Board> boards = boardService.findByWriter(userId);
-       // System.out.println("boards = " + boards);
 
         List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
 //        User user = userService.findById(userId);
@@ -40,22 +51,22 @@ public class MypageController {
     }
 
 
-    // 마이 페이지 목록 변화에 따라 변화해야함
-//    @GetMapping("/board/{myCategory}")
-//    public List<ResponseBoardDto> showMyBoard (@PathVariable String myCategory) {
-//        System.out.println("myCategory = " + myCategory);
-//        User userId = userService.findById(2L);
-//        List<Board> boards = boardService.findByWriter(userId);
-//        System.out.println("user = " + userId);
-//
-////        if(myCategory == "내글") {
-//
-//
-//            List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
-////        User user = userService.findById(userId);
-//            System.out.println("제발!! " + myboard);
-//            return myboard;
-////        }
-////        return null;
-//    }
+   // 마이 페이지 목록 변화에 따라 변화해야함
+    @GetMapping("/board/{myCategory}")
+    public List<ResponseBoardDto> showMyWrite (@PathVariable String myCategory) {
+       System.out.println("myCategory = " + myCategory);
+        User userId = userService.findById(2L);
+        List<Board> boards = boardService.findByWriter(userId);
+        System.out.println("user = " + userId);
+
+//       if(myCategory == "내글") {
+
+
+           List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+//        User user = userService.findById(userId);
+            System.out.println("제발!! " + myboard);
+            return myboard;
+//        }
+//        return null;
+    }
 }

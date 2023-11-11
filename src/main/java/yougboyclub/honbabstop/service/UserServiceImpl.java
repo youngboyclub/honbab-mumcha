@@ -110,4 +110,10 @@ public class UserServiceImpl implements UserService {
   public User findByEmailAndPassword(String email, String password) {
     return userRepository.findByEmailAndPassword(email, password);
   }
+
+  //email로 회원 조회하기
+  @Override
+  public User findByEmail(String email) {
+    return userRepository.findByEmail(email);
+  }
 }

@@ -13,4 +13,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     List<Board> findByWriter(User user);
     List<Board> findByFoodCategory(String foodCategory);
     List<Board> findByPlaceCategory(String placeCategory);
+
+
 }
