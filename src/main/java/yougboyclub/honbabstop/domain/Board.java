@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,7 +69,6 @@ public class Board extends BaseEntity {
   private String locationY;
 
 
-
   // 조회수 증가
   public void increaseHit(User writer) {
     if (!this.writer.equals(writer)) {
@@ -76,14 +76,14 @@ public class Board extends BaseEntity {
     }
   }
 
-    public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress){
-        this.title = title;
-        this.content = content;
-        this.time = time;
-        this.foodCategory = foodCategory;
-        this.placeCategory = placeCategory;
-        this.people = people;
-        this.restaurantName = restaurantName;
-        this.restaurantAddress = restaurantAddress;
-    }
+  public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress) {
+    this.title = title;
+    this.content = content;
+    this.time = time;
+    this.foodCategory = foodCategory;
+    this.placeCategory = placeCategory;
+    this.people = people;
+    this.restaurantName = restaurantName;
+    this.restaurantAddress = restaurantAddress;
+  }
 }

@@ -13,7 +13,6 @@ import java.time.LocalTime;
 @Getter
 @ToString
 public class RequestBoardDto {
-
     private String title;
     private User writer;
     private String content;
@@ -31,11 +30,10 @@ public class RequestBoardDto {
     public RequestBoardDto(Long id) {
     }
 
-
     public Board toEntity() {
         return Board.builder()
-                .writer(writer)
                 .title(title)
+                .writer(writer)
                 .content(content)
                 .time(time)
                 .foodCategory(foodCategory)

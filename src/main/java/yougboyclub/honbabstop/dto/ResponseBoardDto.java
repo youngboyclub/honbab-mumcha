@@ -20,7 +20,6 @@ import java.time.LocalTime;
 @Getter
 @ToString
 public class ResponseBoardDto {
-
   private Long boardId;
   private String restaurantName;
   private User writer;
@@ -34,6 +33,8 @@ public class ResponseBoardDto {
   private int status; //모집글의 상태 0:모집 완료, 1:모집 중, -1:완료
   private LocalDateTime regDate;
   private LocalDateTime lastModified;
+  private String locationX;
+  private String locationY;
 
   //생성자
   public ResponseBoardDto(Board board) {
@@ -50,5 +51,7 @@ public class ResponseBoardDto {
     this.status = board.getStatus();
     this.regDate = board.getRegDate();
     this.lastModified = board.getLastModified();
+    this.locationX = board.getLocationX();
+    this.locationY = board.getLocationY();
   }
 }
