@@ -1,20 +1,15 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.http.protocol.HTTP;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
-import yougboyclub.honbabstop.domain.User;
-import yougboyclub.honbabstop.domain.Likes;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
-import yougboyclub.honbabstop.service.LikesServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 public class BoardController {
 
-  @Autowired
   private final BoardService boardService;
-  @Autowired
   private final LikesService likesService;
 
   //모든 모집글 조회
@@ -44,10 +37,11 @@ public class BoardController {
 
   //신규 모집글 작성
   @PostMapping("/new")
-  public ResponseEntity<String> createBoard(@RequestBody RequestBoardDto dto) {
-    System.out.println("dto = " + dto);
-    boardService.createBoard(dto);
-    return ResponseEntity.ok().body("모집글 등록에 성공하였습니다");
+  public ResponseEntity<Board> createBoard(@RequestBody RequestBoardDto dto) {
+    System.out.println("이건 meetDate: " + dto.getMeetDate());
+    Board createdBoard = boardService.createBoard(dto);
+    System.out.println("이건 생성된 게시글의 meetDate: " + createdBoard.getMeetDate());
+    return ResponseEntity.ok(createdBoard);
   }
 
   //모집글 조회(음식)
@@ -78,8 +72,10 @@ public class BoardController {
 
   //모집글 상세 조회(개별 상세조회)
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseBoardDto> findById(@PathVariable Long id) {
-    return new ResponseEntity<>(boardService.findById(id), HttpStatus.OK);
+  public ResponseBoardDto findById(@PathVariable Long id) {
+    Board board = boardService.findById(id);
+    System.out.println(board);
+    return new ResponseBoardDto(board);
   }
 
   //모집글 수정

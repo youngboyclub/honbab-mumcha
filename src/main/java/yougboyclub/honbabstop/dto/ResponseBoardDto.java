@@ -1,13 +1,16 @@
 package yougboyclub.honbabstop.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.Participants;
 import yougboyclub.honbabstop.domain.User;
 
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +29,8 @@ public class ResponseBoardDto {
   private String restaurantAddress;
   private String foodCategory;
   private LocalTime time;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  private Date meetDate;
   private int people;
   private String title;
   private String content;
@@ -37,6 +42,7 @@ public class ResponseBoardDto {
   private String locationY;
 
   //생성자
+  @Builder
   public ResponseBoardDto(Board board) {
     this.boardId = board.getId();
     this.restaurantName = board.getRestaurantName();
@@ -44,6 +50,7 @@ public class ResponseBoardDto {
     this.writer = board.getWriter();
     this.foodCategory = board.getFoodCategory();
     this.time = board.getTime();
+    this.meetDate = board.getMeetDate();
     this.people = board.getPeople();
     this.title = board.getTitle();
     this.content = board.getContent();
