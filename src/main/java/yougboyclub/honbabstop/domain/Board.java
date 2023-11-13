@@ -1,6 +1,7 @@
 package yougboyclub.honbabstop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,30 +20,34 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Table(name = "partyboard")
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "board_no"))
+@AttributeOverride(name = "id", column = @Column(name = "BOARD_NO"))
 @ToString
 public class Board extends BaseEntity {
 
   @ManyToOne(targetEntity = User.class)
-  @JoinColumn(name = "user_no")
+  @JoinColumn(name = "USER_NO")
   private User writer;
 
-  @Column(name = "title")
+  @Column(name = "TITLE")
   private String title;
 
-  @Column(name = "content")
+  @Column(name = "CONTENT")
   private String content;
 
   @Column(name = "TIME")
   private LocalTime time;
 
-  @Column(name = "food_category")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Column(name = "MEET_DATE")
+  private Date meetDate;
+
+  @Column(name = "FOOD_CATEGORY")
   private String foodCategory;
 
-  @Column(name = "place_category")
+  @Column(name = "PLACE_CATEGORY")
   private String placeCategory;
 
-  @Column(name = "status")
+  @Column(name = "STATUS")
   private int status;
 
   @Column(name = "PEOPLE")
@@ -61,7 +67,6 @@ public class Board extends BaseEntity {
   @Column(name = "LAST_MODIFIED")
   private LocalDateTime lastModified;
 
-
   @Column(name = "LOCATION_X")
   private String locationX;
 
@@ -76,14 +81,17 @@ public class Board extends BaseEntity {
     }
   }
 
-  public void update(String title, String content, LocalTime time, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress) {
+  public void update(String title, String content, LocalTime time, Date meetDate, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress, String locationX, String locationY) {
     this.title = title;
     this.content = content;
     this.time = time;
+    this.meetDate = meetDate;
     this.foodCategory = foodCategory;
     this.placeCategory = placeCategory;
     this.people = people;
     this.restaurantName = restaurantName;
     this.restaurantAddress = restaurantAddress;
+    this.locationX = locationX;
+    this.locationY = locationY;
   }
 }
