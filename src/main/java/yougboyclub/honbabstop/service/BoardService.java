@@ -17,12 +17,11 @@ public interface BoardService {
 
   List<Board> findByPlaceCategory(String placeCategory);
 
-  public List<Board> findByWriter(User user);
-
-  ResponseBoardDto findById(Long boardNo);
+  List<Board> findByWriter(User user);
 
   Board updateById(Long id, UpdateBoardRequest request);
 
   void deleteById(Long boardNo);
 
+  Board findById(Long id);
 }

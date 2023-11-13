@@ -7,6 +7,8 @@ import yougboyclub.honbabstop.domain.User;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class UpdateBoardRequest {
   private String title;
   private String content;
   private LocalTime time;
+  private Date meetDate;
   private String foodCategory;
   private String placeCategory;
   private int status;
