@@ -88,4 +88,11 @@ public class BoardServiceImpl implements BoardService {
 
     return participantsRepository.findByUserNonWriter(user);
   }
+
+  @Override
+  public List<Board> findByUser(User user) {
+    return participantsRepository.findByUser(user);
+  }
+
+
 }

@@ -1,5 +1,6 @@
 package yougboyclub.honbabstop.service;
 
+import org.springframework.data.repository.query.Param;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
@@ -20,4 +21,6 @@ public interface BoardService {
     ResponseBoardDto getBoardDetail(Long id, User user);
 
     List<Board> findByUserNonWriter(User user);
+
+    List<Board> findByUser(User user);
 }

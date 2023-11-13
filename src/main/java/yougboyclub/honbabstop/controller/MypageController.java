@@ -28,22 +28,12 @@ public class MypageController {
     public List<ResponseBoardDto> showMyBoard (@RequestParam String email) {
         //get요청으로 받아오면 param으로 넘겨 받아야함
 
-
-        System.out.println("email = " + email);
-
-
         User userId = userService.findByEmail(email);
-        List<Board> party = boardService.findByUserNonWriter(userId);
+        List<Board> party = boardService.findByUser(userId);
+        System.out.println("party = " + party);
         System.out.println("party = " + party.size());
 
-        for (Board board : party) {
-            System.out.println("여기 확인~~~!!!!!!@@@@@@@@");
-            System.out.println(board.getTitle());
-        }
-
-        List<Board> boards = boardService.findByWriter(userId);
-
-        List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+        List<ResponseBoardDto> myboard = party.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
 //        User user = userService.findById(userId);
         //System.out.println("제발!! " + myboard);
         return myboard;
@@ -53,20 +43,21 @@ public class MypageController {
 
    // 마이 페이지 목록 변화에 따라 변화해야함
     @GetMapping("/board/{myCategory}")
-    public List<ResponseBoardDto> showMyWrite (@PathVariable String myCategory) {
-       System.out.println("myCategory = " + myCategory);
-        User userId = userService.findById(2L);
-        List<Board> boards = boardService.findByWriter(userId);
-        System.out.println("user = " + userId);
+    public List<ResponseBoardDto> selectCategory (@PathVariable String myCategory, @RequestParam String email) {
 
-//       if(myCategory == "내글") {
+        User findUser = userService.findByEmail(email);
 
-
-           List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
-//        User user = userService.findById(userId);
+        //카테고리 설정에 따라서 출력 결과물 변화
+       if(myCategory.equals("내약속")) {
+           List<Board> myParty = boardService.findByUserNonWriter(findUser);
+           List<ResponseBoardDto> myboard = myParty.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
             System.out.println("제발!! " + myboard);
             return myboard;
-//        }
-//        return null;
+        } else {
+           List<Board> boards = boardService.findByWriter(findUser);
+           List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+           System.out.println("제발!! " + myboard);
+           return myboard;
+       }
     }
 }
