@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
 
   //모집글 작성
   @Override
-  public Board createBoard(RequestBoardDto requestBoardDto) {
-    Optional<User> byId = userRepository.findById(1L);
+  public Board createBoard(RequestBoardDto requestBoardDto, Long id) {
+    Optional<User> byId = userRepository.findById(id);
 
     User user = byId.get();
 

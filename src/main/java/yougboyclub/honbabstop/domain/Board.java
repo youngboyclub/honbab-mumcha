@@ -61,10 +61,10 @@ public class Board extends BaseEntity {
   private LocalDateTime lastModified;
 
 
-  @Column(name = "LOCATION_X")
+  @Column(name = "location_x")
   private String locationX;
 
-  @Column(name = "LOCATION_Y")
+  @Column(name = "location_y")
   private String locationY;
 
 

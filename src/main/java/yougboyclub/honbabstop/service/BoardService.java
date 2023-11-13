@@ -12,7 +12,7 @@ public interface BoardService {
     List<Board> findAllBoard();
     List<Board> findByFoodCategory(String foodCategory);
     List<Board> findByPlaceCategory(String placeCategory);
-    Board createBoard(RequestBoardDto requestBoardDto);
+    Board createBoard(RequestBoardDto requestBoardDto, Long id);
     // 내가 작성한 글을 조회
     public List<Board> findByWriter(User user);
     Board update(Long id, UpdateBoardRequest request);
