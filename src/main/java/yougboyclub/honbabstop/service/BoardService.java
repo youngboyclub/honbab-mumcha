@@ -9,13 +9,33 @@ import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import java.util.List;
 
 public interface BoardService {
-    List<Board> findAllBoard();
-    List<Board> findByFoodCategory(String foodCategory);
-    List<Board> findByPlaceCategory(String placeCategory);
-    Board createBoard(RequestBoardDto requestBoardDto, Long id);
-    // 내가 작성한 글을 조회
-    public List<Board> findByWriter(User user);
-    Board update(Long id, UpdateBoardRequest request);
+  
+//   List<Board> findAllBoard();
+  
+//   List<Board> findByFoodCategory(String foodCategory);
+  
+//   List<Board> findByPlaceCategory(String placeCategory);
+  
+//   List<Board> findByWriter(User user);
 
-    ResponseBoardDto getBoardDetail(Long id, User user);
+//   Board updateById(Long id, UpdateBoardRequest request);
+  
+  Board createBoard(RequestBoardDto requestBoardDto, Long id);
+  
+  // 내가 작성한 글을 조회
+  public List<Board> findByWriter(User user);
+  
+  Board update(Long id, UpdateBoardRequest request);
+
+  ResponseBoardDto getBoardDetail(Long id, User user);
+
+  List<Board> findAllBoard();
+
+  List<Board> findByFoodCategory(String foodCategory);
+
+  List<Board> findByPlaceCategory(String placeCategory);
+
+  void deleteById(Long boardNo);
+
+  Board findById(Long id);
 }
