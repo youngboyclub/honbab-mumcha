@@ -14,8 +14,8 @@ import java.time.LocalTime;
 @ToString
 public class RequestBoardDto {
 
-    private User writer;
     private String title;
+    private User writer;
     private String content;
     private LocalTime time;
     private String foodCategory;
@@ -40,7 +40,7 @@ public class RequestBoardDto {
                 .time(time)
                 .foodCategory(foodCategory)
                 .placeCategory(placeCategory)
-                .status(1)
+                .status(status)
                 .people(people)
                 .restaurantName(restaurantName)
                 .restaurantAddress(restaurantAddress)
@@ -48,6 +48,5 @@ public class RequestBoardDto {
                 .locationX(locationX)
                 .locationY(locationY)
                 .build();
-    };
+    }
 }
-
