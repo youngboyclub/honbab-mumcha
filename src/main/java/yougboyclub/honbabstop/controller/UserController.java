@@ -3,6 +3,7 @@ package yougboyclub.honbabstop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+
 
     //이메일 인증코드 발송
     //BindingResult: 스프링 프레임워크에서 사용되는 유효성 검사(validation) 결과를 수신하고 오류 메시지를 처리하는 인터페이스
@@ -66,9 +69,11 @@ public class UserController {
         System.out.println("나는 실행되었도다" + user.getEmail() + user.getPassword());
         System.out.println("일단 세션 확인부터" + session);
         try {
-            User loginUser = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+            User loginUser = userService.findByEmail(user.getEmail()); //로그인 창에서 입력한 이메일로 db에 저장된 회원 정보를 가져옴.
             System.out.println("loginUser:: " + loginUser);
-            if (loginUser != null) {
+            //입력받은 비밀번호와 데이터베이스에서 조회한 유저의 암호화된 비밀번호를 비교
+            //passwordEncoder.matches(): 입력받은 비밀번호를 암호화하여 해시화한 값과 DB에서 조회한 유저의 암호화된 비밀번호를 비교
+            if (loginUser != null && passwordEncoder.matches(user.getPassword(), loginUser.getPassword())) {
                 // 로그인 성공
                 UserInfo userInfo = new UserInfo(loginUser.getName(), loginUser.getEmail());
                 return ResponseEntity.ok(userInfo);
@@ -81,7 +86,6 @@ public class UserController {
             return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
         }
     }
-
     @GetMapping("/current")
     public ResponseEntity<User> getCurrentUser(HttpSession session) {
         User user = (User) session.getAttribute("user");

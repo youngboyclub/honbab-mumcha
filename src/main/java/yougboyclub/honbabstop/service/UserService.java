@@ -3,6 +3,8 @@ package yougboyclub.honbabstop.service;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 
+import java.util.Optional;
+
 public interface UserService {
 
     //회원가입 (save)
@@ -16,7 +18,9 @@ public interface UserService {
 
     User findById(Long id);
 
-    User findByEmailAndPassword(String email,String password);
+    User findByEmail(String email);
+
+
 
     User findByEmail(String email);
 
