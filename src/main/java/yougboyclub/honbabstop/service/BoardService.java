@@ -10,12 +10,20 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> findAllBoard();
+
     List<Board> findByFoodCategory(String foodCategory);
+
     List<Board> findByPlaceCategory(String placeCategory);
+
     Board createBoard(RequestBoardDto requestBoardDto);
+
     // 내가 작성한 글을 조회
-    public List<Board> findByWriter(User user);
+    List<Board> findByWriter(User user);
+
     Board update(Long id, UpdateBoardRequest request);
 
     ResponseBoardDto getBoardDetail(Long id, User user);
+
+    List<Board> findByKeyword(String keyword);
+
 }
