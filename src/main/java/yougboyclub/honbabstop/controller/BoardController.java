@@ -42,7 +42,6 @@ public class BoardController {
     Board createdBoard = boardService.createBoard(dto);
     System.out.println("이건 생성된 게시글의 meetDate: " + createdBoard.getMeetDate());
     return ResponseEntity.ok(createdBoard);
-
   }
 
   //모집글 조회(음식)
