@@ -124,6 +124,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> findByUser(User user) {
-        return participantsRepository.findByUser(user);
+        return participantsRepository.findBoardByUser(user);
     }
 }

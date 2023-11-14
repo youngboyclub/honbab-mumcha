@@ -23,8 +23,11 @@ public interface ParticipantsRepository extends JpaRepository<Participants, Long
     List<Board> findByUserNonWriter(@Param("user") User user);
 
     @Query("select p.board from Participants p where p.user =:user")
-    List<Board> findByUser(@Param("user") User user);
+    List<Board> findBoardByUser(@Param("user") User user);
 
     Participants findByBoardAndAndUser(Board board, User user);
+
+    List<Participants> findByUser(User user);
+
 
 }

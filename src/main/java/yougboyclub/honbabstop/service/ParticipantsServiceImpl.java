@@ -16,7 +16,7 @@ public class ParticipantsServiceImpl implements ParticipantsService {
 
     @Override
     public List<Participants> findByUser(User user) {
-        return null;
+        return participantsRepository.findByUser(user);
     }
 
     @Override
@@ -28,4 +28,6 @@ public class ParticipantsServiceImpl implements ParticipantsService {
     public Participants findByBoardAndUser(Board board, User user) {
         return participantsRepository.findByBoardAndAndUser(board, user);
     }
+
+
 }

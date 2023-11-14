@@ -12,5 +12,6 @@ public interface ParticipantsService {
     void createParticipant(Participants participants);
 
     Participants findByBoardAndUser(Board board, User user);
-    
+
+
 }
