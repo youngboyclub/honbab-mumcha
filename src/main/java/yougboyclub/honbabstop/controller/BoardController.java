@@ -1,32 +1,28 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
-import yougboyclub.honbabstop.domain.User;
-import yougboyclub.honbabstop.domain.Likes;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
-import yougboyclub.honbabstop.service.LikesServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/api/board")
 @RestController
 public class BoardController {
 
-  @Autowired
   private final BoardService boardService;
-  @Autowired
   private final LikesService likesService;
 
+  //모든 모집글 조회
   @GetMapping
   public List<ResponseBoardDto> showBoardList() {
     List<Board> boards = boardService.findAllBoard();
@@ -39,14 +35,16 @@ public class BoardController {
     return boardDtos;
   }
 
-
+  //신규 모집글 작성
   @PostMapping("/new")
-  public ResponseEntity<String> createBoard(@RequestBody RequestBoardDto dto) {
-    System.out.println("dto = " + dto);
-    boardService.createBoard(dto);
-    return ResponseEntity.ok().body("게시글 등록에 성공하였습니다");
+  public ResponseEntity<Board> createBoard(@RequestBody RequestBoardDto dto) {
+    System.out.println("이건 meetDate: " + dto.getMeetDate());
+    Board createdBoard = boardService.createBoard(dto);
+    System.out.println("이건 생성된 게시글의 meetDate: " + createdBoard.getMeetDate());
+    return ResponseEntity.ok(createdBoard);
   }
 
+  //모집글 조회(음식)
   @GetMapping("/food/{foodCategory}")
   public List<ResponseBoardDto> showBoardListByFood(@PathVariable String foodCategory) {
     System.out.println("음식카테고리" + foodCategory);
@@ -59,6 +57,7 @@ public class BoardController {
     return boardDtos;
   }
 
+  //모집글 조회(장소)
   @GetMapping("/place/{placeCategory}")
   public List<ResponseBoardDto> showBoardListByPlace(@PathVariable String placeCategory) {
     System.out.println("장소카테고리" + placeCategory);
@@ -71,18 +70,25 @@ public class BoardController {
     return boardDtos;
   }
 
+  //모집글 상세 조회(개별 상세조회)
+  @GetMapping("/{id}")
+  public ResponseBoardDto findById(@PathVariable Long id) {
+    Board board = boardService.findById(id);
+    System.out.println(board);
+    return new ResponseBoardDto(board);
+  }
 
-  @GetMapping("/api/{id}")
-  public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
-    Board updateBoard = boardService.update(id, request);
-
+  //모집글 수정
+  @PutMapping("/edit/{id}")
+  public ResponseEntity<Board> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
+    Board updateBoard = boardService.updateById(id, request);
     return ResponseEntity.ok().body(updateBoard);
   }
 
-  //모집글 상세 조회(개별 상세조회)
-  @GetMapping("/{id}")
-  public ResponseEntity<ResponseBoardDto> getBoardDetail(@PathVariable Long id, User user) {
-    return ResponseEntity.ok(boardService.getBoardDetail(id, user)
-    );
+  //모집글 삭제
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id) {
+    boardService.deleteById(id);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
