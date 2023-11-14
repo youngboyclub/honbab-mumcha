@@ -91,4 +91,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    //email로 회원정보 가져오기
+    @GetMapping
+    public ResponseEntity<User> findUser(@RequestParam String email) {
+        User findUser = userService.findByEmail(email);
+        return ResponseEntity.ok(findUser);
+    }
 }

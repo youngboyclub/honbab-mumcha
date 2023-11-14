@@ -10,6 +10,7 @@ import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
+import yougboyclub.honbabstop.repository.ParticipantsRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -25,10 +26,8 @@ public class BoardServiceImpl implements BoardService {
 
   private final UserRepository userRepository;
 
-  //   public Board createBoard(RequestBoardDto requestBoardDto) {
-//     User user = userRepository.findById(1L)
-//         .orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다."));
-  
+  private final ParticipantsRepository participantsRepository;
+
   //모집글 작성
   @Override
   public Board createBoard(RequestBoardDto requestBoardDto, Long id) {
@@ -95,4 +94,18 @@ public class BoardServiceImpl implements BoardService {
   public void deleteById(Long id) {
     boardRepository.deleteById(id);
   }
+
+
+  @Override
+  public List<Board> findByUserNonWriter(User user) {
+
+    return participantsRepository.findByUserNonWriter(user);
+  }
+
+  @Override
+  public List<Board> findByUser(User user) {
+    return participantsRepository.findByUser(user);
+  }
+
+
 }

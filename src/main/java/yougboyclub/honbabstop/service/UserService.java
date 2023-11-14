@@ -18,6 +18,8 @@ public interface UserService {
 
     User findByEmailAndPassword(String email,String password);
 
+    User findByEmail(String email);
+
 
 
 }

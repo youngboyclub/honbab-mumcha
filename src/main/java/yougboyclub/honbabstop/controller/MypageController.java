@@ -1,6 +1,7 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,28 @@ public class MypageController {
     List<Board> boards = boardService.findByWriter(userId);
     System.out.println("boards = " + boards);
 
+    // User에 대한 정보를 받아 Id를 조회해서 본인이 작성한 글을 조회하기 컨트롤러
+    //RequestParm으로 해보기
+    @GetMapping
+    public List<ResponseBoardDto> showMyBoard (@RequestParam String email) {
+        //get요청으로 받아오면 param으로 넘겨 받아야함
+
+        User userId = userService.findByEmail(email);
+        List<Board> party = boardService.findByUser(userId);
+        System.out.println("party = " + party);
+        System.out.println("party = " + party.size());
+
+        List<ResponseBoardDto> myboard = party.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+//        User user = userService.findById(userId);
+        //System.out.println("제발!! " + myboard);
+        return myboard;
+
+    }
+// ------------------------구분선------------------------------------------------------
+
+   // 마이 페이지 목록 변화에 따라 변화해야함
+    @GetMapping("/board/{myCategory}")
+    public List<ResponseBoardDto> selectCategory (@PathVariable String myCategory, @RequestParam String email) {
     List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
 //        User user = userService.findById(userId);
     System.out.println("제발!! " + myboard);
@@ -42,23 +65,36 @@ public class MypageController {
   }
 
   // 마이 페이지 목록 변화에 따라 변화해야함
-  @GetMapping("/board/{myCategory}")
-  public List<ResponseBoardDto> showMyBoard(@PathVariable String myCategory) {
-    System.out.println("myCategory = " + myCategory);
-    User userId = userService.findById(2L);
-    List<Board> boards = boardService.findByWriter(userId);
-    System.out.println("user = " + userId);
+//   @GetMapping("/board/{myCategory}")
+//   public List<ResponseBoardDto> showMyBoard(@PathVariable String myCategory) {
+//     System.out.println("myCategory = " + myCategory);
+//     User userId = userService.findById(2L);
+//     List<Board> boards = boardService.findByWriter(userId);
+//     System.out.println("user = " + userId);
 
-//        if(myCategory == "내글") {
+//         User findUser = userService.findByEmail(email);
 
-
-    List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
-//        User user = userService.findById(userId);
-    System.out.println("제발!! " + myboard);
-    return myboard;
+//         //카테고리 설정에 따라서 출력 결과물 변화
+//        if(myCategory.equals("내약속")) {
+//            List<Board> myParty = boardService.findByUserNonWriter(findUser);
+//            List<ResponseBoardDto> myboard = myParty.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+//             System.out.println("제발!! " + myboard);
+//             return myboard;
+//         } else {
+//            List<Board> boards = boardService.findByWriter(findUser);
+//            List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+//            System.out.println("제발!! " + myboard);
+//            return myboard;
 //        }
-//        return null;
-  }
+//     }
 
+
+//     List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
+// //        User user = userService.findById(userId);
+//     System.out.println("제발!! " + myboard);
+//     return myboard;
+// //        }
+// //        return null;
+//   }
 
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.bind.annotation.RequestParam;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.repository.BoardRepository;
@@ -37,6 +38,14 @@ class HonbabstopApplicationTests {
 	public void findByMyBoard() {
 		User user = userService.findById(1L);
 		List<Board> boards = boardService.findByWriter(user);
+		System.out.println("boards = " + boards);
+	}
+
+	@Test
+	@DisplayName("참가한 파티 조회")
+	public void myParty() {
+		User user = userService.findById(1L);
+		List<Board> boards = boardService.findByUserNonWriter(user);
 		System.out.println("boards = " + boards);
 	}
 }
