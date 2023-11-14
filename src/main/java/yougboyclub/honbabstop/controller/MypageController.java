@@ -37,7 +37,6 @@ public class MypageController {
 //        User user = userService.findById(userId);
         //System.out.println("제발!! " + myboard);
         return myboard;
-
     }
 
 
