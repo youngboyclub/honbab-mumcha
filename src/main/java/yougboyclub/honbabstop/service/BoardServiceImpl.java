@@ -25,11 +25,17 @@ public class BoardServiceImpl implements BoardService {
 
   private final UserRepository userRepository;
 
+  //   public Board createBoard(RequestBoardDto requestBoardDto) {
+//     User user = userRepository.findById(1L)
+//         .orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다."));
+  
   //모집글 작성
   @Override
-  public Board createBoard(RequestBoardDto requestBoardDto) {
-    User user = userRepository.findById(1L)
-        .orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다."));
+  public Board createBoard(RequestBoardDto requestBoardDto, Long id) {
+    Optional<User> byId = userRepository.findById(id).orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다."));
+
+    User user = byId.get();
+
     Board board = requestBoardDto.toEntity();
     board.setWriter(user);
     return boardRepository.save(board);
