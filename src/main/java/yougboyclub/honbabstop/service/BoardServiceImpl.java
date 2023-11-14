@@ -29,9 +29,10 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public Board createBoard(RequestBoardDto requestBoardDto) {
     User user = userRepository.findById(1L)
-        .orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다."));
+        .orElseThrow(() -> new RuntimeException("사용자를 찾지 못했습니다: " + requestBoardDto.getWriter().getId()));
     Board board = requestBoardDto.toEntity();
     board.setWriter(user);
+    board.setHit(0L);
     return boardRepository.save(board);
   }
 

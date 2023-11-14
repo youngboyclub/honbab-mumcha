@@ -26,7 +26,7 @@ public class MypageController {
   private final BoardService boardService;
   private final UserService userService;
   private final LikesService likesService;
-  private final ParticipantsService participantsService;
+//  private final ParticipantsService participantsService;
 
   // 내가 쓴 게시글 목록
   @GetMapping("/myBoards")
