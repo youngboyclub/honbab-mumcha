@@ -29,8 +29,12 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//스프링 시큐리티 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	//smtp 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//redis 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

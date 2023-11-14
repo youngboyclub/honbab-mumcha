@@ -5,15 +5,13 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 import yougboyclub.honbabstop.repository.UserRepository;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Random;
 import java.util.Optional;
@@ -24,6 +22,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+
+  private final BCryptPasswordEncoder bCryptPasswordEncoder; // 회원 비밀번호 암호화를 위한 객체 주입.
 
   private static final String AUTH_CODE_PREFIX = "AuthCode ";
 
@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
   //이메일 중복 체크
   //회원가입하려는 이메일로 이미 가입한 회원이 있는지 확인.
   private void checkDuplicatedEmail(String email) {
-    User user = userRepository.findByEmail(email); //파라미터로 받은 이메일이 DB에 존재하는지 확인.
-    if (user != null) {//회원이 존재하면 예외 발생.
+    Optional<User> user = userRepository.findByEmail(email); //파라미터로 받은 이메일이 DB에 존재하는지 확인.
+    if (user.isPresent()) {//회원이 존재하면 예외 발생.
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
     }
   }
@@ -89,7 +89,16 @@ public class UserServiceImpl implements UserService {
   //회원가입 (save)
   @Override
   public User save(RequestUserDto userDto) {
-    User savedUser = userDto.toEntity(); //입력받은 정보로 User 객체 생성 후 DB에 저장.
+    User savedUser = User.builder()
+            .name(userDto.getUserName())
+            .email(userDto.getEmail())
+            .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+            .birth(userDto.getBirth())
+            .phone(userDto.getPhone())
+            .address(userDto.getAddress())
+            .gender(userDto.getGender())
+            .mbti(userDto.getMbti())
+            .build(); //입력받은 정보로 User 객체 생성 후 DB에 저장.
     System.out.println("savedUser = " + savedUser);
     return userRepository.save(savedUser);
   }
@@ -106,8 +115,14 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  //로그인
   @Override
-  public User findByEmailAndPassword(String email, String password) {
-    return userRepository.findByEmailAndPassword(email, password);
+  public User findByEmail(String email) {
+    Optional<User> user = userRepository.findByEmail(email);
+    if (user.isEmpty()) { //optional 내부의 값이 유효하면
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "회원정보가 존재하지 않습니다.");
+    }
+    User loginUser = user.get();
+    return loginUser;
   }
 }
