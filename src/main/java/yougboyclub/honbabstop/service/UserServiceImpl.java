@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
+import yougboyclub.honbabstop.dto.UpdateUserRequest;
 import yougboyclub.honbabstop.repository.UserRepository;
 
 import java.time.Duration;
@@ -125,5 +128,22 @@ public class UserServiceImpl implements UserService {
     User loginUser = user.get();
     return loginUser;
   }
+
+  @Override
+  public User findByName(String name) {
+    System.out.println("name = " + name);
+    return userRepository.findByName(name)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "회원정보가 존재하지 않습니다."));
+  }
+
+  @Override
+  @Transactional
+  public User updateById(Long id, UpdateUserRequest request) {
+    User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    user.update(request.getEmail(), request.getName(), request.getAddress());
+
+    return user;
+  }
+
 
 }

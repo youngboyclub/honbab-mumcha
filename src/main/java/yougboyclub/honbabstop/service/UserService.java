@@ -2,6 +2,7 @@ package yougboyclub.honbabstop.service;
 
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
+import yougboyclub.honbabstop.dto.UpdateUserRequest;
 
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    User findByName(String name);
 
-
-
+    User updateById(Long id, UpdateUserRequest request);
 }

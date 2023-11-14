@@ -13,6 +13,7 @@ import yougboyclub.honbabstop.domain.UserInfo;
 import yougboyclub.honbabstop.dto.RequestEmailCodeVerificationDto;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 import yougboyclub.honbabstop.dto.RequestUserEmailDto;
+import yougboyclub.honbabstop.dto.UpdateUserRequest;
 import yougboyclub.honbabstop.service.UserService;
 
 import javax.servlet.http.HttpSession;
@@ -102,5 +103,19 @@ public class UserController {
     public ResponseEntity<User> findUser(@RequestParam String email) {
         User findUser = userService.findByEmail(email);
         return ResponseEntity.ok(findUser);
+    }
+
+    // 회원정보 수정하기
+    @PostMapping("/edit")
+    public ResponseEntity<User> updateUser (@RequestBody UpdateUserRequest request) {
+        System.out.println("찍혀?");
+        String name = request.getEmail();
+        System.out.println("findUserName = " + name);
+        User findUser = userService.findByEmail(name); // findByName으로 수정 필요
+        System.out.println("findUser = " + findUser);
+        Long id = findUser.getId();
+        User update = userService.updateById(id, request);
+        System.out.println("update = " + update);
+        return ResponseEntity.ok(update);
     }
 }

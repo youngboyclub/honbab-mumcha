@@ -113,4 +113,11 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         //게정이 사용 가능한지 확인하는 로직
         return true;
     }
+
+    public void update(String email, String name, String address) {
+        this.email = email;
+        this.name = name;
+        this.address = address;
+
+    }
 }
