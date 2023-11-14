@@ -21,10 +21,12 @@ public interface BoardService {
   
     // 내가 작성한 글을 조회
     public List<Board> findByWriter(User user);
-  
+
     Board update(Long id, UpdateBoardRequest request);
 
     ResponseBoardDto getBoardDetail(Long id, User user);
+
+    List<Board> findByKeyword(String keyword);
 
     List<Board> findByUserNonWriter(User user);
 
