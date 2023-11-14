@@ -3,6 +3,7 @@ package yougboyclub.honbabstop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Likes;
+import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.repository.LikesRepository;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public class LikesServiceImpl implements LikesService{
     public List<Likes> findByUserNo(Long id) {
         return likesRepository.findByUserNo(id);
     }
+
 }

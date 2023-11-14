@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.domain.UserInfo;
 import yougboyclub.honbabstop.dto.RequestEmailCodeVerificationDto;
@@ -29,7 +30,7 @@ public class UserController {
 
         //입력받은 이메일이 빈칸이 있거나 이메일형식이 아닐 시, 에러 반환.
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 형식이 맞지 않습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일 형식이 맞지 않습니다.");
         }
 
         String toEmail = toEmailDto.getEmail();
@@ -90,5 +91,12 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    //email로 회원정보 가져오기
+    @GetMapping
+    public ResponseEntity<User> findUser(@RequestParam String email) {
+        User findUser = userService.findByEmail(email);
+        return ResponseEntity.ok(findUser);
     }
 }

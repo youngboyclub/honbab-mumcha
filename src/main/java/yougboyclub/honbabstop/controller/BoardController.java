@@ -1,7 +1,7 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
@@ -16,27 +16,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/api/board")
 @RestController
 public class BoardController {
 
-    @Autowired
-    private final BoardService boardService;
-    @Autowired
-    private final LikesService likesService;
+  private final BoardService boardService;
+  private final LikesService likesService;
 
-    @GetMapping
-    public List<ResponseBoardDto> showBoardList() {
-        List<Board> boards = boardService.findAllBoard();
-        List<ResponseBoardDto> boardDtos = boards.stream()
-                .map(board -> new ResponseBoardDto(board))
-                .collect(Collectors.toList());
-
+  //모든 모집글 조회
+  @GetMapping
+  public List<ResponseBoardDto> showBoardList() {
+    List<Board> boards = boardService.findAllBoard();
+    List<ResponseBoardDto> boardDtos = boards.stream()
+        .map(board -> new ResponseBoardDto(board))
+        .collect(Collectors.toList());
         System.out.println("여기까지 오느라 수고했어1::" + boards);
         System.out.println("여기까지 오느라 수고했어2::" + boardDtos);
         return boardDtos;
     }
-
 
     @PostMapping("/new")
     public ResponseEntity<String> createBoard(@RequestBody RequestBoardDto dto) {
@@ -94,5 +91,27 @@ public class BoardController {
     public ResponseEntity<ResponseBoardDto> getBoardDetail(@PathVariable Long id, User user) {
         return ResponseEntity.ok(boardService.getBoardDetail(id, user)
         );
+    }
+  
+      //모집글 상세 조회(개별 상세조회)
+    @GetMapping("/{id}")
+    public ResponseBoardDto findById(@PathVariable Long id) {
+      Board board = boardService.findById(id);
+      System.out.println(board);
+      return new ResponseBoardDto(board);
+    }
+
+    //모집글 수정
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Board> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
+      Board updateBoard = boardService.updateById(id, request);
+      return ResponseEntity.ok().body(updateBoard);
+    }
+
+    //모집글 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id) {
+      boardService.deleteById(id);
+      return new ResponseEntity<>(HttpStatus.OK);
     }
 }

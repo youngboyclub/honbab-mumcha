@@ -25,3 +25,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             "(:keyword IS NULL OR :keyword = '' OR b.content LIKE %:keyword%)")
     List<Board> findByKeyword(@Param("keyword") String keyword);
 }
+
