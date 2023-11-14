@@ -94,12 +94,12 @@ public class BoardController {
     }
   
       //모집글 상세 조회(개별 상세조회)
-    @GetMapping("/{id}")
-    public ResponseBoardDto findById(@PathVariable Long id) {
-      Board board = boardService.findById(id);
-      System.out.println(board);
-      return new ResponseBoardDto(board);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseBoardDto findById(@PathVariable Long id) {
+//      Board board = boardService.findById(id);
+//      System.out.println(board);
+//      return new ResponseBoardDto(board);
+//    }
 
     //모집글 수정
     @PutMapping("/edit/{id}")

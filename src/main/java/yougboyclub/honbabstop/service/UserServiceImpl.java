@@ -126,9 +126,4 @@ public class UserServiceImpl implements UserService {
     return loginUser;
   }
 
-  //email로 회원 조회하기
-  @Override
-  public User findByEmail(String email) {
-    return userRepository.findByEmail(email);
-  }
 }

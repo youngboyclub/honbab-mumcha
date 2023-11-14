@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
+import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.ParticipantsRepository;
@@ -70,7 +71,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public Board update(Long id, UpdateBoardRequest request) {
         Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress());
+        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getMeetDate() ,request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress(), request.getLocationX(), request.getLocationY());
         return board;
     }
 

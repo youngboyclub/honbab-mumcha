@@ -13,4 +13,8 @@ import java.util.List;
 public class ParticipantsServiceImpl implements ParticipantsService {
 
 
+  @Override
+  public List<Participants> findByUser(User user) {
+    return null;
   }
+}

@@ -35,6 +35,8 @@ public interface BoardService {
     void deleteById(Long boardNo);
 
     Board findById(Long id);
+
+    Board updateById(Long id, UpdateBoardRequest request);
 }
 
   
