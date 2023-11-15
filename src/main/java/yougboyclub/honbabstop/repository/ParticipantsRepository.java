@@ -24,4 +24,8 @@ public interface ParticipantsRepository extends JpaRepository <Participants, Lon
 
     @Query("select p.board from Participants p where p.user =:user")
     List<Board> findByUser(@Param("user")User user);
+
+    //참가한 글에 해당하는 유저 가져오는 쿼리
+    @Query("select u from User u where u in(select  p.user from Participants p where p.board =:board)")
+    List<User> findByBoardPartyUser(@Param("board")Board board);
 }
