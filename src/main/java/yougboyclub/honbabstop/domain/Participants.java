@@ -9,8 +9,7 @@ import java.util.List;
 
 @Table(name = "participants")
 @Entity
-@Getter
-@Setter
+@Data
 @AttributeOverride(name = "id", column = @Column(name = "participants_no"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participants extends BaseEntity {
