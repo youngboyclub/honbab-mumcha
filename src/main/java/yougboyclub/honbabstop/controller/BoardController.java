@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
+import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
+import yougboyclub.honbabstop.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class BoardController {
 
   private final BoardService boardService;
   private final LikesService likesService;
+  private final UserService userService;
 
   //모든 모집글 조회
   @GetMapping
@@ -38,10 +42,8 @@ public class BoardController {
   //신규 모집글 작성
   @PostMapping("/new")
   public ResponseEntity<Board> createBoard(@RequestBody RequestBoardDto dto) {
-    System.out.println("이건 meetDate: " + dto.getMeetDate());
-    Board createdBoard = boardService.createBoard(dto);
-    System.out.println("이건 생성된 게시글의 meetDate: " + createdBoard.getMeetDate());
-    return ResponseEntity.ok(createdBoard);
+    Board board = boardService.postBoard(dto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(board);
   }
 
   //모집글 조회(음식)
@@ -72,7 +74,7 @@ public class BoardController {
 
   //모집글 상세 조회(개별 상세조회)
   @GetMapping("/{id}")
-  public ResponseBoardDto findById(@PathVariable Long id) {
+  public ResponseBoardDto findBoardDetailById(@PathVariable Long id) {
     Board board = boardService.findById(id);
     System.out.println(board);
     return new ResponseBoardDto(board);

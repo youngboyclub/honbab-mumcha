@@ -17,14 +17,12 @@ public interface BoardService {
   
     List<Board> findByPlaceCategory(String placeCategory);
   
-    Board createBoard(RequestBoardDto requestBoardDto);
+    Board postBoard(RequestBoardDto requestBoardDto);
   
     // 내가 작성한 글을 조회
     public List<Board> findByWriter(User user);
 
     Board update(Long id, UpdateBoardRequest request);
-
-    ResponseBoardDto getBoardDetail(Long id, User user);
 
     List<Board> findByKeyword(String keyword);
 
@@ -32,7 +30,7 @@ public interface BoardService {
 
     List<Board> findByUser(User user);
 
-    void deleteById(Long boardNo);
+    void deleteById(Long boardId);
 
     Board findById(Long id);
 
@@ -41,26 +39,26 @@ public interface BoardService {
 
   
 //   Board createBoard(RequestBoardDto requestBoardDto, Long id);
-  
+//
 //   // 내가 작성한 글을 조회
 //   public List<Board> findByWriter(User user);
-  
+//
 //   Board update(Long id, UpdateBoardRequest request);
-
+//
 //   ResponseBoardDto getBoardDetail(Long id, User user);
-
+//
 //   List<Board> findAllBoard();
-  
+//
 //   List<Board> findByFoodCategory(String foodCategory);
-  
+//
 //   List<Board> findByPlaceCategory(String placeCategory);
-  
+//
 //   List<Board> findByWriter(User user);
-
+//
 //   Board updateById(Long id, UpdateBoardRequest request);
-  
+//
 //   List<Board> findAllBoard();
-
+//
 //   List<Board> findByFoodCategory(String foodCategory);
-
+//
 //   List<Board> findByPlaceCategory(String placeCategory);
