@@ -23,16 +23,11 @@ public class RequestBoardDto {
   private Date meetDate;
   private String foodCategory;
   private String placeCategory;
-  private int status;
   private int people;
   private String restaurantName;
   private String restaurantAddress;
-  private Long hit;
   private String locationX;
   private String locationY;
-
-  public RequestBoardDto(Long id) {
-  }
 
   @Builder
   public Board toEntity() {
@@ -44,11 +39,9 @@ public class RequestBoardDto {
         .meetDate(meetDate)
         .foodCategory(foodCategory)
         .placeCategory(placeCategory)
-        .status(status)
         .people(people)
         .restaurantName(restaurantName)
         .restaurantAddress(restaurantAddress)
-        .hit(hit)
         .locationX(locationX)
         .locationY(locationY)
         .build();
