@@ -13,14 +13,24 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ParticipantsServiceImpl implements ParticipantsService {
+    private final ParticipantsRepository participantsRepository;
+
+    @Override
+    public List<Participants> findByUser(User user) {
+        return participantsRepository.findByUser(user);
+    }
+
+    @Override
+    public void createParticipant(Participants participants) {
+        participantsRepository.save(participants);
+    }
+
+    @Override
+    public Participants findByBoardAndUser(Board board, User user) {
+        return participantsRepository.findByBoardAndAndUser(board, user);
+    }
 
   private final ParticipantsRepository participantsRepository;
-
-
-  @Override
-  public List<Participants> findByUser(User user) {
-    return null;
-  }
 
   @Override
   public List<User> findByBoardPartyUser(Board board) {

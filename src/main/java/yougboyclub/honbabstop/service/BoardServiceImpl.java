@@ -2,8 +2,6 @@ package yougboyclub.honbabstop.service;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
@@ -18,7 +16,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@ToString
 @RequiredArgsConstructor
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -26,7 +23,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
     private final UserRepository userRepository;
-  
+
     private final ParticipantsRepository participantsRepository;
 
     //모집글 작성
@@ -71,7 +68,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public Board update(Long id, UpdateBoardRequest request) {
         Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getMeetDate() ,request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress(), request.getLocationX(), request.getLocationY());
+        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getMeetDate(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress(), request.getLocationX(), request.getLocationY());
         return board;
     }
 
@@ -86,47 +83,47 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> findByKeyword(String keyword) {
         return boardRepository.findByKeyword(keyword);
     }
-  
+
     //모집글 번호로 조회
     public Board findById(Long id) {
-      return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+        return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
     }
-  
+
     //특정 모집글 수정
     @Override
     @Transactional
     public Board updateById(Long id, UpdateBoardRequest request) {
-      Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다. : " + id));
-      board.update(request.getTitle(),
-          request.getContent(),
-          request.getTime(),
-          request.getMeetDate(),
-          request.getFoodCategory(),
-          request.getPlaceCategory(),
-          request.getPeople(),
-          request.getRestaurantName(),
-          request.getRestaurantAddress(),
-          request.getLocationX(),
-          request.getLocationY());
-      return board;
+        Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다. : " + id));
+        board.update(request.getTitle(),
+                request.getContent(),
+                request.getTime(),
+                request.getMeetDate(),
+                request.getFoodCategory(),
+                request.getPlaceCategory(),
+                request.getPeople(),
+                request.getRestaurantName(),
+                request.getRestaurantAddress(),
+                request.getLocationX(),
+                request.getLocationY());
+        return board;
     }
 
     //특정 모집글 삭제
     @Override
     @Transactional
     public void deleteById(Long id) {
-      boardRepository.deleteById(id);
+        boardRepository.deleteById(id);
     }
 
 
     @Override
     public List<Board> findByUserNonWriter(User user) {
 
-      return participantsRepository.findByUserNonWriter(user);
+        return participantsRepository.findByUserNonWriter(user);
     }
 
     @Override
     public List<Board> findByUser(User user) {
-      return participantsRepository.findByUser(user);
+        return participantsRepository.findBoardByUser(user);
     }
 }

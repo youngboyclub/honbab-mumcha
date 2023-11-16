@@ -2,10 +2,6 @@ package yougboyclub.honbabstop.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,18 +9,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-
-/**
- * 시큐리티가 "/login" 주소 요청이 오면 낚아채서 로그인을 진행시킨다.
- * 로그인을 진행이 완료가 되면 시큐리티 session을 만들어준다. (Security ContextHolder)
- * 오브젝트 => Authentication 타입 객체
- * Authentication 안에 User 정보가 있어야 됨.
- * User 오브젝트 타입 => UserDetails 타입 객체
- *
- * Security Session => Authentication => UserDetails
- */
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,9 +16,8 @@ import java.util.List;
 @ToString
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_no"))
-//UserDetails를 상속받아 인증 객체로 사용.
 //Serializable 로그인 시 세션에 회원정보를 담기 위한 설정
-public class User extends BaseEntity implements Serializable, UserDetails {
+public class User extends BaseEntity implements Serializable {
 
 
     @Column(name = "user_email")
