@@ -31,33 +31,10 @@ public interface BoardService {
 
   void deleteById(Long boardId);
 
-  Board findById(Long id, User currentUser);
+  Board findByIdAndUser(Long id, User currentUser);
+
+  Board findById(Long id);
 
   Board updateById(Long id, UpdateBoardRequest request);
 }
 
-
-//   Board createBoard(RequestBoardDto requestBoardDto, Long id);
-//
-//   // 내가 작성한 글을 조회
-//   public List<Board> findByWriter(User user);
-//
-//   Board update(Long id, UpdateBoardRequest request);
-//
-//   ResponseBoardDto getBoardDetail(Long id, User user);
-//
-//   List<Board> findAllBoard();
-//
-//   List<Board> findByFoodCategory(String foodCategory);
-//
-//   List<Board> findByPlaceCategory(String placeCategory);
-//
-//   List<Board> findByWriter(User user);
-//
-//   Board updateById(Long id, UpdateBoardRequest request);
-//
-//   List<Board> findAllBoard();
-//
-//   List<Board> findByFoodCategory(String foodCategory);
-//
-//   List<Board> findByPlaceCategory(String placeCategory);

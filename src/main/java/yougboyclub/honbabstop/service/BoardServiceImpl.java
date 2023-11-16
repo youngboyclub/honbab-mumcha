@@ -84,26 +84,24 @@ public class BoardServiceImpl implements BoardService {
   }
 
   //모집글 상세조회(모집글 번호)
-  public Board findById(Long id, User currentUser) {
+  @Override
+  public Board findByIdAndUser(Long id, User currentUser) {
     Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
 
     // 본인 게시글이 아닐 경우에만 조회수 증가
     if (!board.getWriter().getId().equals(currentUser.getId())) {
       board.increaseHit();
-
-    @Override
-    public List<Board> findByKeyword(String keyword) {
-        return boardRepository.findByKeyword(keyword);
     }
+    return board;
+  }
 
-    //특정 모집글 삭제
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        boardRepository.deleteById(id);
-    }
+  @Override
+  public Board findById(Long id) {
+    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+    return board;
+  }
 
-    @Override
+  @Override
     public List<Board> findByUserNonWriter(User user) {
         return participantsRepository.findByUserNonWriter(user);
     }
@@ -139,15 +137,4 @@ public class BoardServiceImpl implements BoardService {
     boardRepository.deleteById(id);
   }
 
-
-  @Override
-  public List<Board> findByUserNonWriter(User user) {
-
-    return participantsRepository.findByUserNonWriter(user);
-  }
-
-  @Override
-  public List<Board> findByUser(User user) {
-    return participantsRepository.findByUser(user);
-  }
 }

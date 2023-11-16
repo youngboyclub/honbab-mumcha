@@ -80,7 +80,7 @@ public class BoardController {
   @GetMapping("/{id}")
   public ResponseBoardDto findBoardDetailById(@PathVariable Long id, User currentUser) {
     User user = userService.findById(currentUser.getId()); // 현재 사용자 정보를 가져옴
-    Board board = boardService.findById(id, user); // 조회수 증가 로직이 포함된 메소드 호출
+    Board board = boardService.findByIdAndUser(id, user); // 조회수 증가 로직이 포함된 메소드 호출
     System.out.println(board);
     return new ResponseBoardDto(board);
   }
