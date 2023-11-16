@@ -1,20 +1,18 @@
 package yougboyclub.honbabstop.service;
 
 
-import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import net.bytebuddy.asm.Advice;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
+import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.ParticipantsRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -25,20 +23,25 @@ public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
 
-  private final UserRepository userRepository;
-
   private final ParticipantsRepository participantsRepository;
 
+  private final UserRepository userRepository;
+
   //모집글 작성
-
-
   @Override
-  public Board postBoard(RequestBoardDto requestBoardDto) {
-    User user = userRepository.getReferenceById(requestBoardDto.getWriter().getId());
-    Board board = requestBoardDto.toEntity();
-    board.setWriter(user);
-    board.setHit(0L);
-    return boardRepository.save(board);
+  public Board createBoard(RequestBoardDto requestBoardDto) {
+    Optional<User> optionalUser = userRepository.findByEmail(requestBoardDto.getWriter().getEmail());
+    if (optionalUser.isPresent()) {
+      User getUser = optionalUser.get();
+      System.out.println("이건 겟유저다 이 짜식아:: " + getUser);
+      Board board = requestBoardDto.toEntity();
+      board.setHit(0L);
+      board.setStatus(0);
+      board.setWriter(getUser);
+      System.out.println("이건 세팅 다 끝난 보드~:: " + board);
+      return boardRepository.save(board);
+    }
+    return null;
   }
 
   //모든 모집글 조회
@@ -80,9 +83,15 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.findByKeyword(keyword);
   }
 
-  //모집글 번호로 조회
-  public Board findById(Long id) {
-    return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+  //모집글 상세조회(모집글 번호)
+  public Board findById(Long id, User currentUser) {
+    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+
+    // 본인 게시글이 아닐 경우에만 조회수 증가
+    if (!board.getWriter().getId().equals(currentUser.getId())) {
+      board.increaseHit();
+    }
+    return board;
   }
 
   //특정 모집글 수정

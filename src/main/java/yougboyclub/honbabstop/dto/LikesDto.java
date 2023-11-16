@@ -12,15 +12,15 @@ import yougboyclub.honbabstop.domain.User;
 @ToString
 public class LikesDto {
 
-  private User userNo;
-  private Board boardNo;
+  private User userId;
+  private Board boardId;
   private int status;
 
   // DTO를 Likes 엔티티로 변환하는 메서드
   public Likes toEntity() {
     return Likes.builder()
-        .userNo(userNo.getId())
-        .boardNo(boardNo.getId())
+        .userId(userId.getId())
+        .boardId(boardId.getId())
         .status(status)
         .build();
   }

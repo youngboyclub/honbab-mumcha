@@ -11,16 +11,16 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@AttributeOverride(name = "id", column = @Column(name = "participants_no"))
+@AttributeOverride(name = "id", column = @Column(name = "participants_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participants extends BaseEntity {
 
   @ManyToOne
-  @JoinColumn(name = "user_no")
+  @JoinColumn(name = "user_id")
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "board_no")
+  @JoinColumn(name = "board_id")
   private Board board;
 
   @Column(name = "status")

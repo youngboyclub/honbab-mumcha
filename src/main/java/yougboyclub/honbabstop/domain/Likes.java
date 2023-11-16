@@ -12,22 +12,22 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AttributeOverride(name = "id", column = @Column(name = "like_no"))
+@AttributeOverride(name = "id", column = @Column(name = "like_id"))
 public class Likes extends BaseEntity{
 
     @ManyToOne(targetEntity = User.class)
-    private Long userNo;
+    private Long userId;
 
-    @ManyToOne(targetEntity = User.class)
-    private Long boardNo;
+    @ManyToOne(targetEntity = Board.class)
+    private Long boardId;
 
     @Column(name = "status", nullable = false, columnDefinition = "int default 1")
     private int status;
 
     @Builder
-    public Likes(Long userNo, Long boardNo, int status) {
-        this.userNo = userNo;
-        this.boardNo = boardNo;
+    public Likes(Long userId, Long boardId, int status) {
+        this.userId = userId;
+        this.boardId = boardId;
         this.status = status;
     }
 }

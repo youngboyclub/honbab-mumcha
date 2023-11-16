@@ -9,6 +9,7 @@ import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
+import yougboyclub.honbabstop.repository.UserRepository;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
 import yougboyclub.honbabstop.service.UserService;
@@ -41,9 +42,11 @@ public class BoardController {
 
   //신규 모집글 작성
   @PostMapping("/new")
-  public ResponseEntity<Board> createBoard(@RequestBody RequestBoardDto dto) {
-    Board board = boardService.postBoard(dto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(board);
+  public ResponseEntity<ResponseBoardDto> createBoard(@RequestBody RequestBoardDto dto) {
+    System.out.println("이건 컨트롤러로 들어오는 dto: " +dto);
+    Board board = boardService.createBoard(dto);
+    ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
+    return ResponseEntity.ok(responseBoardDto);
   }
 
   //모집글 조회(음식)
@@ -74,8 +77,9 @@ public class BoardController {
 
   //모집글 상세 조회(개별 상세조회)
   @GetMapping("/{id}")
-  public ResponseBoardDto findBoardDetailById(@PathVariable Long id) {
-    Board board = boardService.findById(id);
+  public ResponseBoardDto findBoardDetailById(@PathVariable Long id, User currentUser) {
+    User user = userService.findById(currentUser.getId()); // 현재 사용자 정보를 가져옴
+    Board board = boardService.findById(id, user); // 조회수 증가 로직이 포함된 메소드 호출
     System.out.println(board);
     return new ResponseBoardDto(board);
   }

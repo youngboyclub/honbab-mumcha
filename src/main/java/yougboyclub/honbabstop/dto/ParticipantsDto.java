@@ -11,8 +11,8 @@ import yougboyclub.honbabstop.domain.User;
 @Getter
 @ToString
 public class ParticipantsDto {
-  private Participants participantsNo;
-  private User userNo;
-  private Board boardNo;
+  private Participants participantsId;
+  private User userId;
+  private Board boardId;
   private int status;
 }

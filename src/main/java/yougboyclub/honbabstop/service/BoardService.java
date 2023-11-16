@@ -1,43 +1,42 @@
 package yougboyclub.honbabstop.service;
 
-import org.springframework.data.repository.query.Param;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
-import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 
 import java.util.List;
 
 public interface BoardService {
-  
-    List<Board> findAllBoard();
-  
-    List<Board> findByFoodCategory(String foodCategory);
-  
-    List<Board> findByPlaceCategory(String placeCategory);
-  
-    Board postBoard(RequestBoardDto requestBoardDto);
-  
-    // 내가 작성한 글을 조회
-    public List<Board> findByWriter(User user);
 
-    Board update(Long id, UpdateBoardRequest request);
+  //모집글
+  Board createBoard(RequestBoardDto requestBoardDto);
 
-    List<Board> findByKeyword(String keyword);
+  List<Board> findAllBoard();
 
-    List<Board> findByUserNonWriter(User user);
+  List<Board> findByFoodCategory(String foodCategory);
 
-    List<Board> findByUser(User user);
+  List<Board> findByPlaceCategory(String placeCategory);
 
-    void deleteById(Long boardId);
+  // 내가 작성한 글을 조회
+  public List<Board> findByWriter(User user);
 
-    Board findById(Long id);
+  Board update(Long id, UpdateBoardRequest request);
 
-    Board updateById(Long id, UpdateBoardRequest request);
+  List<Board> findByKeyword(String keyword);
+
+  List<Board> findByUserNonWriter(User user);
+
+  List<Board> findByUser(User user);
+
+  void deleteById(Long boardId);
+
+  Board findById(Long id, User currentUser);
+
+  Board updateById(Long id, UpdateBoardRequest request);
 }
 
-  
+
 //   Board createBoard(RequestBoardDto requestBoardDto, Long id);
 //
 //   // 내가 작성한 글을 조회
