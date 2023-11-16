@@ -30,10 +30,8 @@ public class ParticipantsServiceImpl implements ParticipantsService {
         return participantsRepository.findByBoardAndAndUser(board, user);
     }
 
-  private final ParticipantsRepository participantsRepository;
-
-  @Override
-  public List<User> findByBoardPartyUser(Board board) {
-    return participantsRepository.findByBoardPartyUser(board);
-  }
+    @Override
+    public List<User> findByBoardPartyUser(Board board) {
+        return participantsRepository.findByBoardPartyUser(board);
+    }
 }

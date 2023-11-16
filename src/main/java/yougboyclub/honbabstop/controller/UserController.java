@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.domain.UserInfo;
-import yougboyclub.honbabstop.dto.RequestEmailCodeVerificationDto;
-import yougboyclub.honbabstop.dto.RequestUserDto;
-import yougboyclub.honbabstop.dto.RequestUserEmailDto;
-import yougboyclub.honbabstop.dto.UpdateUserRequest;
+import yougboyclub.honbabstop.dto.*;
 import yougboyclub.honbabstop.service.UserService;
 
 import javax.servlet.http.HttpSession;

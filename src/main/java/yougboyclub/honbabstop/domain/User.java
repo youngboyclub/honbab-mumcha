@@ -2,6 +2,10 @@ package yougboyclub.honbabstop.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +13,8 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,7 +23,7 @@ import java.time.LocalDateTime;
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_no"))
 //Serializable 로그인 시 세션에 회원정보를 담기 위한 설정
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity implements Serializable, UserDetails {
 
 
     @Column(name = "user_email")
