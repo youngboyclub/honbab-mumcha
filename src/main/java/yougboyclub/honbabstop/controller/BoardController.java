@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/board")
 @RestController
+@CrossOrigin
 public class BoardController {
 
   private final BoardService boardService;

@@ -90,9 +90,28 @@ public class BoardServiceImpl implements BoardService {
     // 본인 게시글이 아닐 경우에만 조회수 증가
     if (!board.getWriter().getId().equals(currentUser.getId())) {
       board.increaseHit();
+
+    @Override
+    public List<Board> findByKeyword(String keyword) {
+        return boardRepository.findByKeyword(keyword);
     }
-    return board;
-  }
+
+    //특정 모집글 삭제
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        boardRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Board> findByUserNonWriter(User user) {
+        return participantsRepository.findByUserNonWriter(user);
+    }
+
+    @Override
+    public List<Board> findByUser(User user) {
+        return participantsRepository.findBoardByUser(user);
+    }
 
   //특정 모집글 수정
   @Override

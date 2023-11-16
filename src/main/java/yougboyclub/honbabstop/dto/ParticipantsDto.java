@@ -1,18 +1,27 @@
 package yougboyclub.honbabstop.dto;
 
 import lombok.*;
-import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.Participants;
-import yougboyclub.honbabstop.domain.User;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 public class ParticipantsDto {
-  private Participants participantsId;
-  private User userId;
-  private Board boardId;
-  private int status;
+    private Participants participantsNo;
+    private String email;
+    private String username;
+    private Long boardNo;
+    private int status;
+
+    @Builder
+    public Participants toEntity() {
+        return Participants.builder()
+                .user(null)
+                .board(null)
+                .status(status)
+                .build();
+    }
 }
