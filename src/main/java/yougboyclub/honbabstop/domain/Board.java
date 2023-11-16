@@ -1,14 +1,11 @@
 package yougboyclub.honbabstop.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-import yougboyclub.honbabstop.dto.RequestBoardDto;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
@@ -20,51 +17,51 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "partyboard")
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "BOARD_NO"))
+@AttributeOverride(name = "id", column = @Column(name = "board_id"))
 @ToString
 public class Board extends BaseEntity {
 
   @ManyToOne(targetEntity = User.class)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "user_id")
   private User writer;
 
-  @Column(name = "TITLE")
+  @Column(name = "title")
   private String title;
 
-  @Column(name = "CONTENT")
+  @Column(name = "content")
   private String content;
 
-  @Column(name = "TIME")
+  @Column(name = "time")
   private LocalTime time;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Column(name = "MEET_DATE")
+  @Column(name = "meet_date")
   private Date meetDate;
 
-  @Column(name = "FOOD_CATEGORY")
+  @Column(name = "food_category")
   private String foodCategory;
 
-  @Column(name = "PLACE_CATEGORY")
+  @Column(name = "place_category")
   private String placeCategory;
 
-  @Column(name = "STATUS")
+  @Column(name = "status")
   private int status;
 
-  @Column(name = "PEOPLE")
+  @Column(name = "people")
   private int people;
 
-  @Column(name = "RESTAURANT_NAME")
+  @Column(name = "restaurant_name")
   private String restaurantName;
 
-  @Column(name = "RESTAURANT_ADDRESS")
+  @Column(name = "restaurant_address")
   private String restaurantAddress;
 
-  @Column(name = "HIT")
+  @Column(name = "hit")
   private Long hit;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
   @UpdateTimestamp
-  @Column(name = "LAST_MODIFIED")
+  @Column(name = "last_modified")
   private LocalDateTime lastModified;
 
   @Column(name = "location_x")
@@ -74,11 +71,9 @@ public class Board extends BaseEntity {
   private String locationY;
 
 
-  // 조회수 증가
-  public void increaseHit(User writer) {
-    if (!this.writer.equals(writer)) {
-      this.hit += 1;
-    }
+  // 조회수 증가 메소드
+  public void increaseHit() {
+      this.hit += 1L;
   }
 
   public void update(String title, String content, LocalTime time, Date meetDate, String foodCategory, String placeCategory, int people, String restaurantName, String restaurantAddress, String locationX, String locationY) {

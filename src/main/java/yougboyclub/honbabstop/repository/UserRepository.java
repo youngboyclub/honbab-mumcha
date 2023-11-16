@@ -13,3 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByName(String name);// 이름으로 회원 객체를 조회
 }
+
+ 

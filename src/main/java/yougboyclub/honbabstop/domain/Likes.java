@@ -24,7 +24,6 @@ public class Likes extends BaseEntity {
     @JoinColumn(name = "board_no")
     private Board board;
 
-
     @Builder
     public Likes(Long id, LocalDateTime regDate, User user, Board board) {
         super(id, regDate);

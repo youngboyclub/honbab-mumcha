@@ -1,5 +1,7 @@
 package yougboyclub.honbabstop.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.AttributeOverride;
@@ -26,7 +28,7 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "user_pwd")
     private String password;
 
-    @Column(name = "user_name")
+     @Column(name = "user_name")
     private String name;
 
     @Column(name = "birthday")
