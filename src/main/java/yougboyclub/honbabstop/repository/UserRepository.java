@@ -10,4 +10,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email); // 이메일로 회원 객체를 조회.
+
+    Optional<User> findByName(String name);// 이름으로 회원 객체를 조회
 }
+
+ 
