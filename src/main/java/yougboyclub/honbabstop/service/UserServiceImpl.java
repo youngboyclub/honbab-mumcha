@@ -8,7 +8,12 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import yougboyclub.honbabstop.domain.Board;
+import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.dto.RequestUserDto;
+import yougboyclub.honbabstop.dto.UpdateUserRequest;
 import yougboyclub.honbabstop.config.security.TokenProvider;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
@@ -157,6 +162,21 @@ public class UserServiceImpl implements UserService {
     return loginUser;
   }
 
+  @Override
+  public User findByName(String name) {
+    System.out.println("name = " + name);
+    return userRepository.findByName(name)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "회원정보가 존재하지 않습니다."));
+  }
+
+  @Override
+  @Transactional
+  public User updateById(Long id, UpdateUserRequest request) {
+    User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    user.update(request.getEmail(), request.getName(), request.getAddress());
+
+    return user;
+
 //  @Override
 //  public ResponseLoginDto login(String email, String password) {
 //    //1.userName 없음.
@@ -199,6 +219,4 @@ public class UserServiceImpl implements UserService {
     ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, selectedUser);
     return responseLoginDto;
   }
-
-
 }

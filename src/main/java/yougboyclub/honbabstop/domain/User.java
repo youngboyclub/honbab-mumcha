@@ -59,4 +59,48 @@ public class User extends BaseEntity implements Serializable {
         this.mbti = mbti;
     }
 
+    @Override //권한 반환
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("user"));
+    }
+
+    @Override //사용자의 id를 반환(고유한 값)
+    public String getUsername() {
+        return email; // 회원 ID를 반환.
+    }
+
+    @Override //사용자의 패스워드를 반환
+    public String getPassword() {
+        return password; // 회원 패스워드를 반환.
+    }
+
+    @Override //계정 만료여부 반환
+    public boolean isAccountNonExpired() {
+        return true; //true -> 만료되지 않음.
+    }
+
+    @Override //계정 잠금 여부 반환
+    public boolean isAccountNonLocked() {
+        //계정 잠금되었는지 확인하는 로직
+        return true;
+    }
+
+    @Override //패스워드의 만료여부 반환
+    public boolean isCredentialsNonExpired() {
+        //패스워드가 만료되었는지 확인하는 로직
+        return true;
+    }
+
+    @Override //계정 사용여부 반환
+    public boolean isEnabled() {
+        //게정이 사용 가능한지 확인하는 로직
+        return true;
+    }
+
+    public void update(String email, String name, String address) {
+        this.email = email;
+        this.name = name;
+        this.address = address;
+
+    }
 }

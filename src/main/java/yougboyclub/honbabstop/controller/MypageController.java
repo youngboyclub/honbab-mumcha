@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.dto.ParticipantsUserInfoDto;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.service.BoardService;
+import yougboyclub.honbabstop.service.ParticipantsService;
 import yougboyclub.honbabstop.service.UserService;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class MypageController {
 
     private final BoardService boardService;
     private final UserService userService;
+    private final ParticipantsService participantsService;
 
 
     // User에 대한 정보를 받아 Id를 조회해서 본인이 작성한 글을 조회하기 컨트롤러
@@ -58,5 +61,17 @@ public class MypageController {
             System.out.println("제발!! " + myboard);
             return myboard;
         }
+    }
+
+    @GetMapping("/party/{id}")
+    public List<ParticipantsUserInfoDto> myPartyUser(@PathVariable Long id) {
+        System.out.println("글 번호 = " + id);
+        Board partyBoard = boardService.findById(id);
+
+        System.out.println("내가 참여한 글 = " + partyBoard);
+        List<User> partyUser = participantsService.findByBoardPartyUser(partyBoard);
+        List<ParticipantsUserInfoDto> userInfo = partyUser.stream().map(ParticipantsUserInfoDto::new).collect(Collectors.toList());
+
+        return userInfo;
     }
 }

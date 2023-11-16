@@ -6,6 +6,7 @@ import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.Participants;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.repository.ParticipantsRepository;
+import yougboyclub.honbabstop.repository.UserRepository;
 
 import java.util.List;
 
@@ -29,5 +30,10 @@ public class ParticipantsServiceImpl implements ParticipantsService {
         return participantsRepository.findByBoardAndAndUser(board, user);
     }
 
+  private final ParticipantsRepository participantsRepository;
 
+  @Override
+  public List<User> findByBoardPartyUser(Board board) {
+    return participantsRepository.findByBoardPartyUser(board);
+  }
 }
