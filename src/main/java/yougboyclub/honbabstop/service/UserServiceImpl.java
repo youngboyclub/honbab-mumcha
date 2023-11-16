@@ -21,6 +21,7 @@ import yougboyclub.honbabstop.dto.ResponseLoginDto;
 import yougboyclub.honbabstop.exception.AppException;
 import yougboyclub.honbabstop.exception.ErrorCode;
 import yougboyclub.honbabstop.repository.UserRepository;
+import yougboyclub.honbabstop.*;
 
 
 import java.time.Duration;
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
     //메서드 종료시간
     long afterTime = System.currentTimeMillis();
     long diffTime = afterTime - beforeTime;
-    System.out.println("중복 체크 걸린 시간 = " +TimeUnit.MILLISECONDS.toSeconds(diffTime));
+    System.out.println("중복 체크 걸린 시간 = " + TimeUnit.MILLISECONDS.toSeconds(diffTime));
     if (user.isPresent()) {//회원이 존재하면 예외 발생.
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
     }
@@ -176,7 +177,7 @@ public class UserServiceImpl implements UserService {
     user.update(request.getEmail(), request.getName(), request.getAddress());
 
     return user;
-
+  }
 //  @Override
 //  public ResponseLoginDto login(String email, String password) {
 //    //1.userName 없음.
@@ -198,25 +199,25 @@ public class UserServiceImpl implements UserService {
 //    ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, selectedUser);
 //    return responseLoginDto;
 //  }
-  @Override
-  public ResponseLoginDto login(String email, String password) {
-    //1.userName 없음.
-    User selectedUser = userRepository.findByEmail(email)
-            // 예외 처리하는 기능
-            .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND, email + "이 없습니다."));
-    //2. 패스워드 틀림.
-    // DB에 암호화로 저장된 패스워드와 일치하는지 체크
-    if(!bCryptPasswordEncoder.matches( password, selectedUser.getPassword())){
-      // 예외 처리하는 기능
-      throw new AppException(ErrorCode.INVALID_PASSWORD, "이메일 또는 비밀번호가 틀렸습니다.");
+    @Override
+    public ResponseLoginDto login (String email, String password){
+      //1.userName 없음.
+      User selectedUser = userRepository.findByEmail(email)
+              // 예외 처리하는 기능
+              .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, email + "이 없습니다."));
+      //2. 패스워드 틀림.
+      // DB에 암호화로 저장된 패스워드와 일치하는지 체크
+      if (!bCryptPasswordEncoder.matches(password, selectedUser.getPassword())) {
+        // 예외 처리하는 기능
+        throw new AppException(ErrorCode.INVALID_PASSWORD, "이메일 또는 비밀번호가 틀렸습니다.");
+      }
+
+      String token = tokenProvider.create(email); //JWT토큰 생성.
+      int expireTime = 3600000;
+      System.out.println("token = " + token);
+      // 예외처리가 끝나면 (로그인 성공 시)토큰을 반환.
+
+      ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, selectedUser);
+      return responseLoginDto;
     }
-
-    String token = tokenProvider.create(email); //JWT토큰 생성.
-    int expireTime = 3600000;
-    System.out.println("token = " + token);
-    // 예외처리가 끝나면 (로그인 성공 시)토큰을 반환.
-
-    ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, selectedUser);
-    return responseLoginDto;
   }
-}
