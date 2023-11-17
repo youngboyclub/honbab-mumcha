@@ -18,7 +18,7 @@ public class WebSecurityConfig {
     private final JwtAuthencationFilter jwtAuthencationFilter;
 
     @Bean
-    protected SecurityFilterChain configure (HttpSecurity httpSecurity) throws Exception {
+    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 //cors정책 (현재 application에서 작업 해둠. => 기본값 사용)
                 .cors().and()
@@ -28,8 +28,8 @@ public class WebSecurityConfig {
                 .httpBasic().disable()
                 // 세션 기반 인증 (현재는 session 기반 인증을 사용하지 않음.)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/users/new", "/api/users/login", "/api/users/emails/**").permitAll()
-                .antMatchers("/api/board/food/**").authenticated();
+                .authorizeRequests().antMatchers("/api/users/new", "/api/users/login", "/api/users/emails/**").permitAll();
+        //.antMatchers("/api/board/food/**").authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthencationFilter, UsernamePasswordAuthenticationFilter.class);
 
