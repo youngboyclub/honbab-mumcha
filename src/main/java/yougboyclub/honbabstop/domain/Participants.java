@@ -1,13 +1,15 @@
 package yougboyclub.honbabstop.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Table(name = "participants")
 @Entity
-@Data
 @Setter
 @AttributeOverride(name = "id", column = @Column(name = "participants_no"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
