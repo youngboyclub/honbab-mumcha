@@ -1,7 +1,5 @@
 package yougboyclub.honbabstop.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +21,7 @@ import java.util.List;
 @Table(name = "users")
 @ToString
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "user_no"))
+@AttributeOverride(name = "id", column = @Column(name = "user_id"))
 //Serializable 로그인 시 세션에 회원정보를 담기 위한 설정
 public class User extends BaseEntity implements Serializable, UserDetails {
 
@@ -34,7 +32,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @Column(name = "user_pwd")
     private String password;
 
-     @Column(name = "user_name")
+    @Column(name = "user_name")
     private String name;
 
     @Column(name = "birthday")

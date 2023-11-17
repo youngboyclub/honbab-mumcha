@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AttributeOverride(name = "id", column = @Column(name = "like_no"))
+@AttributeOverride(name = "id", column = @Column(name = "like_id"))
 public class Likes extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "user_no")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "board_no")
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @Builder
