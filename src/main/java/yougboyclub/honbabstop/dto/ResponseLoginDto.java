@@ -3,7 +3,7 @@ package yougboyclub.honbabstop.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.domain.UserInfo;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,5 +11,5 @@ import yougboyclub.honbabstop.domain.User;
 public class ResponseLoginDto {
     private String token;
     private int expireTime;
-    private User user;
+    private UserInfo user;
 }
