@@ -3,7 +3,6 @@ package yougboyclub.honbabstop.domain;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.AttributeOverride;
@@ -14,7 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -67,7 +66,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 
     @Override //권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return Collections.emptyList();
     }
 
     @Override //사용자의 id를 반환(고유한 값)
