@@ -1,5 +1,6 @@
 package yougboyclub.honbabstop.service;
 
+import org.springframework.http.ResponseEntity;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 import yougboyclub.honbabstop.dto.UpdateUserRequest;
@@ -13,10 +14,10 @@ public interface UserService {
     User save(RequestUserDto userDto);
 
     //이메일 인증코드 발송
-    void sendCodeToEmail(String toEmail);
+    ResponseEntity<String> sendCodeToEmail(String toEmail);
 
     //이메일 인증코드 확인
-    void verifiedCode(String email, String code);
+    ResponseEntity<String> verifiedCode(String email, String code);
 
     User findById(Long id);
 
