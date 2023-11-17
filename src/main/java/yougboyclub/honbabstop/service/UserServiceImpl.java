@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.domain.UserInfo;
 import yougboyclub.honbabstop.dto.RequestUserDto;
 import yougboyclub.honbabstop.dto.UpdateUserRequest;
 import yougboyclub.honbabstop.config.security.TokenProvider;
@@ -57,8 +59,12 @@ public class UserServiceImpl implements UserService {
 
   //인증 코드를 생성 후 수신자 이메일로 발송
   @Override
-  public void sendCodeToEmail(String toEmail) {
-    this.checkDuplicatedEmail(toEmail);
+  public ResponseEntity<String> sendCodeToEmail(String toEmail) {
+    //이메일 중복체크
+    if(!this.checkDuplicatedEmail(toEmail)){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 이메일입니다.");
+    }
+
     String title = "[* <혼밥멈춰!!> 이메일 인증 번호 *]";
     String authCode = this.createCode(); // 인증코드 생성
     //메서드 실행 시작 시간
@@ -75,11 +81,13 @@ public class UserServiceImpl implements UserService {
     // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
     redisService.setValues(AUTH_CODE_PREFIX + toEmail,
             authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+
+    return ResponseEntity.status(HttpStatus.OK).body("인증코드가 발송되었습니다.");
   }
 
   //이메일 중복 체크
   //회원가입하려는 이메일로 이미 가입한 회원이 있는지 확인.
-  private void checkDuplicatedEmail(String email) {
+  private boolean checkDuplicatedEmail(String email) {
     //메서드 실행 시작 시간
     long beforeTime = System.currentTimeMillis();
 
@@ -90,9 +98,9 @@ public class UserServiceImpl implements UserService {
     long diffTime = afterTime - beforeTime;
     System.out.println("중복 체크 걸린 시간 = " + TimeUnit.MILLISECONDS.toSeconds(diffTime));
     if (user.isPresent()) {//회원이 존재하면 예외 발생.
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
+      return false;
     }
-
+    return true;
   }
 
   //인증코드 생성
@@ -110,17 +118,21 @@ public class UserServiceImpl implements UserService {
 
   //인증 코드를 검증
   @Override
-  public void verifiedCode(String email, String code) {
-    this.checkDuplicatedEmail(email); //이메일 중복체크 진행.
+  public ResponseEntity<String> verifiedCode(String email, String code) {
+    //이메일 중복체크
+    if(!this.checkDuplicatedEmail(email)){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 이메일입니다.");
+    }
+
 
     String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email); //redis에 저장된 인증코드를 가져옴.
     System.out.println("redisAuthCode = " + redisAuthCode);
 
     // Redis에서 Code가 없거나 일치하지 않는다면 예외를 반환.
     if (redisAuthCode == null || !redisAuthCode.equals(code)) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "인증 코드가 틀렸습니다. 다시 입력해주세요.");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증 코드가 틀렸습니다. 다시 입력해주세요.");
     }
-
+    return ResponseEntity.status(HttpStatus.OK).body("인증이 완료되었습니다."); //200
   }
 
   //회원가입 (save)
@@ -205,6 +217,12 @@ public class UserServiceImpl implements UserService {
       User selectedUser = userRepository.findByEmail(email)
               // 예외 처리하는 기능
               .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, email + "이 없습니다."));
+      //세션에 저장하기 때문에 최소 정보만 가진 User 객체 생성
+      UserInfo user = UserInfo.builder()
+              .name(selectedUser.getName())
+              .id(selectedUser.getId())
+              .email(selectedUser.getEmail())
+              .build();
       //2. 패스워드 틀림.
       // DB에 암호화로 저장된 패스워드와 일치하는지 체크
       if (!bCryptPasswordEncoder.matches(password, selectedUser.getPassword())) {
@@ -217,7 +235,7 @@ public class UserServiceImpl implements UserService {
       System.out.println("token = " + token);
       // 예외처리가 끝나면 (로그인 성공 시)토큰을 반환.
 
-      ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, selectedUser);
+      ResponseLoginDto responseLoginDto = new ResponseLoginDto(token, expireTime, user);
       return responseLoginDto;
     }
   }
