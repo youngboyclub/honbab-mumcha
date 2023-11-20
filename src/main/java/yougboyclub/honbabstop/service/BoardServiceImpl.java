@@ -1,19 +1,28 @@
 package yougboyclub.honbabstop.service;
 
 
+import antlr.Token;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
+import yougboyclub.honbabstop.config.security.TokenProvider;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
-import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.repository.BoardRepository;
 import yougboyclub.honbabstop.repository.ParticipantsRepository;
 import yougboyclub.honbabstop.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.security.AuthProvider;
+import java.security.Principal;
+import java.security.Provider;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +39,7 @@ public class BoardServiceImpl implements BoardService {
   //모집글 작성
   @Override
   public Board createBoard(RequestBoardDto requestBoardDto) {
+    System.out.println("user : " + requestBoardDto.getWriter().getEmail());
     Optional<User> optionalUser = userRepository.findByEmail(requestBoardDto.getWriter().getEmail());
     if (optionalUser.isPresent()) {
       User getUser = optionalUser.get();
@@ -73,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
   @Override
   @Transactional
   public Board update(Long id, UpdateBoardRequest request) {
-    Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     board.update(request.getTitle(), request.getContent(), request.getTime(), request.getMeetDate(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress(), request.getLocationX(), request.getLocationY());
     return board;
   }
@@ -87,7 +97,6 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public Board findByIdAndUser(Long id, User currentUser) {
     Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
-
     // 본인 게시글이 아닐 경우에만 조회수 증가
     if (!board.getWriter().getId().equals(currentUser.getId())) {
       board.increaseHit();
@@ -102,20 +111,20 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-    public List<Board> findByUserNonWriter(User user) {
-        return participantsRepository.findByUserNonWriter(user);
-    }
+  public List<Board> findByUserNonWriter(User user) {
+    return participantsRepository.findByUserNonWriter(user);
+  }
 
-    @Override
-    public List<Board> findByUser(User user) {
-        return participantsRepository.findBoardByUser(user);
-    }
+  @Override
+  public List<Board> findByUser(User user) {
+    return participantsRepository.findBoardByUser(user);
+  }
 
   //특정 모집글 수정
   @Override
   @Transactional
   public Board updateById(Long id, UpdateBoardRequest request) {
-    Board board = boardRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다. : " + id));
+    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다. : " + id));
     board.update(request.getTitle(),
         request.getContent(),
         request.getTime(),

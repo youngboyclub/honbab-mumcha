@@ -5,6 +5,8 @@ import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 public interface BoardService {
@@ -31,10 +33,10 @@ public interface BoardService {
 
   void deleteById(Long boardId);
 
-  Board findByIdAndUser(Long id, User currentUser);
+  //모집글 상세조회(모집글 번호)
+  Board findByIdAndUser(Long id, User user);
 
   Board findById(Long id);
 
   Board updateById(Long id, UpdateBoardRequest request);
 }
-

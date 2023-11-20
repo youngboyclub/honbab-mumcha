@@ -1,14 +1,17 @@
 package yougboyclub.honbabstop.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.Validate;
+import yougboyclub.honbabstop.config.security.TokenProvider;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.User;
-import yougboyclub.honbabstop.dto.RequestBoardDto;
-import yougboyclub.honbabstop.dto.ResponseBoardDto;
-import yougboyclub.honbabstop.dto.UpdateBoardRequest;
+import yougboyclub.honbabstop.dto.*;
 import yougboyclub.honbabstop.repository.UserRepository;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
@@ -44,7 +47,7 @@ public class BoardController {
   //신규 모집글 작성
   @PostMapping("/new")
   public ResponseEntity<ResponseBoardDto> createBoard(@RequestBody RequestBoardDto dto) {
-    System.out.println("이건 컨트롤러로 들어오는 dto: " +dto);
+    System.out.println("이건 컨트롤러로 들어오는 dto: " + dto);
     Board board = boardService.createBoard(dto);
     ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
     return ResponseEntity.ok(responseBoardDto);
@@ -81,9 +84,10 @@ public class BoardController {
   public ResponseBoardDto findBoardDetailById(@PathVariable Long id, User currentUser) {
     User user = userService.findById(currentUser.getId()); // 현재 사용자 정보를 가져옴
     Board board = boardService.findByIdAndUser(id, user); // 조회수 증가 로직이 포함된 메소드 호출
-    System.out.println(board);
+    System.out.println("서비스 갔다온 보드: " + board);
     return new ResponseBoardDto(board);
   }
+
 
   //모집글 수정
   @PutMapping("/boardDetails/edit/{id}")
