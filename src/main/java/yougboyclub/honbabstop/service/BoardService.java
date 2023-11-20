@@ -31,7 +31,7 @@ public interface BoardService {
 
   List<Board> findByUser(User user);
 
-  void deleteById(Long boardId);
+  void deleteById(Long id, Long userId);
 
   //모집글 상세조회(모집글 번호)
   Board findByIdAndUser(Long id, User user);

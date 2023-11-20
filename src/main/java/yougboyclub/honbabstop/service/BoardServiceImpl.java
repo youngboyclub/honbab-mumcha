@@ -149,8 +149,13 @@ public class BoardServiceImpl implements BoardService {
   //특정 모집글 삭제
   @Override
   @Transactional
-  public void deleteById(Long id) {
+  public void deleteById(Long id, Long userId) {
+    Board board = boardRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+    // 권한 확인
+    if (!board.getWriter().getId().equals(userId)) {
+      throw new IllegalArgumentException("게시글 삭제 권한이 없습니다.");
+    }
     boardRepository.deleteById(id);
   }
-
 }
