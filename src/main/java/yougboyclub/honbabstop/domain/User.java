@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -67,7 +68,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 
     @Override //권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return Collections.emptyList();
     }
 
     @Override //사용자의 id를 반환(고유한 값)
