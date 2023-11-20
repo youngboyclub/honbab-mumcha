@@ -101,11 +101,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board findByIdAndUser(Long id, User currentUser) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
-
         // 본인 게시글이 아닐 경우에만 조회수 증가
         if (!board.getWriter().getId().equals(currentUser.getId())) {
             board.increaseHit();
         }
+        boardRepository.save(board);
         return board;
     }
 
