@@ -39,4 +39,6 @@ public interface BoardService {
   Board findById(Long id);
 
   Board updateById(Long id, UpdateBoardRequest request);
+
+
 }
