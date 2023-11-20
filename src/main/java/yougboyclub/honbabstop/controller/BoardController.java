@@ -74,15 +74,16 @@ public class BoardController {
         return boardDtos;
     }
 
-    //모집글 상세 조회(개별 상세조회)
+    //모집글 상세 조회(개별 상세 조회)
     @GetMapping("/boardDetails/{id}")
-    public ResponseBoardDto findBoardDetailById(@PathVariable Long id, User currentUser) {
-        User user = userService.findById(currentUser.getId()); // 현재 사용자 정보를 가져옴
-        Board board = boardService.findByIdAndUser(id, user); // 조회수 증가 로직이 포함된 메소드 호출
+    public ResponseBoardDto findBoardDetailById(@PathVariable Long id, @RequestHeader("User-Id") Long userId) {
+        System.out.println("헤더에 담겨온 userId: " + userId);
+        User currentUser = userService.findById(userId); // 현재 로그인한 사용자 정보를 가져옴
+        System.out.println("현재 로그인한 유저: " + currentUser);
+        Board board = boardService.findByIdAndUser(id, currentUser); // 조회수 증가 로직이 포함된 서비스 호출
         System.out.println("서비스 갔다온 보드: " + board);
         return new ResponseBoardDto(board);
     }
-
 
     //모집글 수정
     @PutMapping("/boardDetails/edit/{id}")
@@ -92,10 +93,16 @@ public class BoardController {
     }
 
     //모집글 삭제
+    //외래키 제약 조건 때문에 삭제 안돼ㅠ
     @DeleteMapping("/boardDetails/delete/{id}")
-    public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id) {
-        boardService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id, @RequestHeader("User-Id") Long userId) {
+      // 게시글 존재 확인 및 권한 확인
+      boardService.deleteById(id, userId);
+      // 삭제 성공 확인
+      if (boardService.findById(id) != null) {
+        throw new IllegalArgumentException("게시글 삭제에 실패했습니다.");
+      }
+      return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/findby/{keyword}")
