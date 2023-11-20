@@ -18,7 +18,7 @@ public class WebSecurityConfig {
     private final JwtAuthencationFilter jwtAuthencationFilter;
 
     @Bean
-    protected SecurityFilterChain configure (HttpSecurity httpSecurity) throws Exception {
+    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 //cors정책 (현재 application에서 작업 해둠. => 기본값 사용)
                 .cors().and()

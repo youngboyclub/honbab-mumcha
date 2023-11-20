@@ -1,6 +1,9 @@
 package yougboyclub.honbabstop.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +21,6 @@ import java.util.Collections;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
-@ToString
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 //Serializable 로그인 시 세션에 회원정보를 담기 위한 설정

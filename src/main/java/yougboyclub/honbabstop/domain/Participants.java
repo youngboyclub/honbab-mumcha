@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
+@ToString
 @AttributeOverride(name = "id", column = @Column(name = "participants_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participants extends BaseEntity {

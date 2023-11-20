@@ -3,6 +3,7 @@ package yougboyclub.honbabstop.service;
 
 import antlr.Token;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -93,32 +94,38 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.findByKeyword(keyword);
   }
 
-  //모집글 상세조회(모집글 번호)
-  @Override
-  public Board findByIdAndUser(Long id, User currentUser) {
-    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
-    // 본인 게시글이 아닐 경우에만 조회수 증가
-    if (!board.getWriter().getId().equals(currentUser.getId())) {
-      board.increaseHit();
+
+
+
+    //모집글 상세조회(모집글 번호)
+    @Override
+    public Board findByIdAndUser(Long id, User currentUser) {
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+
+        // 본인 게시글이 아닐 경우에만 조회수 증가
+        if (!board.getWriter().getId().equals(currentUser.getId())) {
+            board.increaseHit();
+        }
+        return board;
     }
-    return board;
-  }
 
-  @Override
-  public Board findById(Long id) {
-    Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
-    return board;
-  }
+    @Override
+    public Board findById(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾지 못했습니다: " + id));
+        return board;
+    }
 
-  @Override
-  public List<Board> findByUserNonWriter(User user) {
-    return participantsRepository.findByUserNonWriter(user);
-  }
+    @Override
+    public List<Board> findByUserNonWriter(User user) {
+        return participantsRepository.findByUserNonWriter(user);
+    }
+
 
   @Override
   public List<Board> findByUser(User user) {
     return participantsRepository.findBoardByUser(user);
   }
+
 
   //특정 모집글 수정
   @Override
