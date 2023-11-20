@@ -28,8 +28,9 @@ public class WebSecurityConfig {
                 .httpBasic().disable()
                 // 세션 기반 인증 (현재는 session 기반 인증을 사용하지 않음.)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/users/new", "/api/users/login", "/api/users/emails/**").permitAll();
-        //.antMatchers("/api/board/food/**").authenticated();
+                .authorizeRequests().antMatchers("/api/users/new", "/api/users/login", "/api/users/emails/**").permitAll()
+                .antMatchers("/api/board/new", "/api/board/boardDetails/**","/api/my/**").authenticated()
+                .anyRequest().permitAll();
 
         httpSecurity.addFilterBefore(jwtAuthencationFilter, UsernamePasswordAuthenticationFilter.class);
 
