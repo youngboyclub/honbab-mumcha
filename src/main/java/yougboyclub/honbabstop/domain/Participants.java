@@ -1,9 +1,6 @@
 package yougboyclub.honbabstop.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "participants")
 @Entity
 @Setter
+@Getter
 @AttributeOverride(name = "id", column = @Column(name = "participants_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participants extends BaseEntity {
