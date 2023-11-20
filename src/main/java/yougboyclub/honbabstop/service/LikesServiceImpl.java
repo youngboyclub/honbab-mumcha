@@ -33,4 +33,9 @@ public class LikesServiceImpl implements LikesService {
     public void deleteLikes(Likes likes) {
         likesRepository.delete(likes);
     }
+
+    @Override
+    public List<Board> findBoardByUserLike(User user) {
+        return likesRepository.findBoardByUserLike(user);
+    }
 }
