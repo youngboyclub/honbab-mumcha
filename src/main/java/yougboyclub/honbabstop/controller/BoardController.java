@@ -80,7 +80,7 @@ public class BoardController {
   }
 
   //모집글 상세 조회(개별 상세조회)
-  @GetMapping("/{id}")
+  @GetMapping("/boardDetails/{id}")
   public ResponseBoardDto findBoardDetailById(@PathVariable Long id, User currentUser) {
     User user = userService.findById(currentUser.getId()); // 현재 사용자 정보를 가져옴
     Board board = boardService.findByIdAndUser(id, user); // 조회수 증가 로직이 포함된 메소드 호출
@@ -90,14 +90,14 @@ public class BoardController {
 
 
   //모집글 수정
-  @PutMapping("/edit/{id}")
+  @PutMapping("/boardDetails/edit/{id}")
   public ResponseEntity<Board> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
     Board updateBoard = boardService.updateById(id, request);
     return ResponseEntity.ok().body(updateBoard);
   }
 
   //모집글 삭제
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/boardDetails/delete/{id}")
   public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id) {
     boardService.deleteById(id);
     return new ResponseEntity<>(HttpStatus.OK);
