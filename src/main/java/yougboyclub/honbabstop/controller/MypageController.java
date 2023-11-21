@@ -3,18 +3,14 @@ package yougboyclub.honbabstop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
-import yougboyclub.honbabstop.domain.Likes;
 import yougboyclub.honbabstop.domain.User;
-import yougboyclub.honbabstop.dto.LikesDto;
 import yougboyclub.honbabstop.dto.ParticipantsUserInfoDto;
-import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
 import yougboyclub.honbabstop.service.ParticipantsService;
 import yougboyclub.honbabstop.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +28,7 @@ public class MypageController {
     // User에 대한 정보를 받아 Id를 조회해서 본인이 작성한 글을 조회하기 컨트롤러
     // RequestParm으로 해보기
     @GetMapping
+
     public List<ResponseBoardDto> showMyBoard (@RequestParam String email) {
         //get요청으로 받아오면 param으로 넘겨 받아야함
         User userId = userService.findByEmail(email);
@@ -49,7 +46,7 @@ public class MypageController {
         User findUser = userService.findByEmail(email);
 
         //카테고리 설정에 따라서 출력 결과물 변화
-        if(myCategory.equals("내약속")) {
+        if (myCategory.equals("내약속")) {
             List<Board> myParty = boardService.findByUserNonWriter(findUser);
             List<ResponseBoardDto> myboard = myParty.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
             return myboard;
@@ -57,7 +54,7 @@ public class MypageController {
             List<Board> myLike = likesService.findBoardByUserLike(findUser);
             List<ResponseBoardDto> myboard = myLike.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
             return myboard;
-        } else{
+        } else {
             List<Board> boards = boardService.findByWriter(findUser);
             List<ResponseBoardDto> myboard = boards.stream().map(ResponseBoardDto::new).collect(Collectors.toList());
             return myboard;
@@ -70,7 +67,6 @@ public class MypageController {
 
         List<User> partyUser = participantsService.findByBoardPartyUser(partyBoard);
         List<ParticipantsUserInfoDto> userInfo = partyUser.stream().map(ParticipantsUserInfoDto::new).collect(Collectors.toList());
-
         return userInfo;
     }
 }
