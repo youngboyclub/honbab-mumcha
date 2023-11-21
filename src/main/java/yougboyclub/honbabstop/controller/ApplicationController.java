@@ -133,5 +133,44 @@ public class ApplicationController {
         //[1:수락 0:대기 -1:거절 -99:참여정보 없음]
     }
 
+    @PostMapping("/acceptparticipants")
+    public ResponseEntity<String> acceptParticipants(@RequestBody ParticipantsDto participantsDto) {
+        System.out.println(participantsDto.getEmail());
+        System.out.println(participantsDto.getBoardNo());
+        User user = userService.findByEmail(participantsDto.getEmail());
+        Board board = boardService.findById(participantsDto.getBoardNo());
+        Participants participants = participantsService.findByBoardAndUser(board, user);
+        if (participants != null) {
+            try {
+                participants.setStatus(1);
+                participantsService.editParticipant(participants);
+                System.out.print(participants);
+                return ResponseEntity.ok("Participated ");
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
+            }
+        } else return ResponseEntity.badRequest().body("잘못된 요청입니다.");
+    }
+
+    @PostMapping("/denyparticipants")
+    public ResponseEntity<String> denyParticipants(@RequestBody ParticipantsDto participantsDto) {
+        System.out.println(participantsDto.getEmail());
+        System.out.println(participantsDto.getBoardNo());
+        User user = userService.findByEmail(participantsDto.getEmail());
+        Board board = boardService.findById(participantsDto.getBoardNo());
+        Participants participants = participantsService.findByBoardAndUser(board, user);
+        if (participants != null) {
+            try {
+                participants.setStatus(-1);
+                participantsService.editParticipant(participants);
+                System.out.print(participants);
+                return ResponseEntity.ok("Participated ");
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
+            }
+        } else return ResponseEntity.badRequest().body("잘못된 요청입니다.");
+    }
+
+
 }
 
