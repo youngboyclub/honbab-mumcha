@@ -61,7 +61,7 @@ public class BoardController {
         );
 
         ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
-        return ResponseEntity.ok(responseBoardDto)
+        return ResponseEntity.ok(responseBoardDto);
     }
 
     //모집글 조회(음식)
