@@ -10,10 +10,7 @@ import yougboyclub.honbabstop.domain.Participants;
 import yougboyclub.honbabstop.domain.User;
 import yougboyclub.honbabstop.dto.LikesDto;
 import yougboyclub.honbabstop.dto.ParticipantsDto;
-import yougboyclub.honbabstop.service.BoardService;
-import yougboyclub.honbabstop.service.LikesService;
-import yougboyclub.honbabstop.service.ParticipantsService;
-import yougboyclub.honbabstop.service.UserService;
+import yougboyclub.honbabstop.service.*;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class ApplicationController {
     private final UserService userService;
     private final ParticipantsService participantsService;
     private final LikesService likesService;
+    private final MailService mailService;
 
 
     //파티 신청하기
@@ -44,6 +42,14 @@ public class ApplicationController {
                 participants.setStatus(0);
                 System.out.println(participants);
                 participantsService.createParticipant(participants);
+
+                //참가 완료 이메일 전송
+                String toEmail = board.getWriter().getEmail();
+                String toName = board.getWriter().getName();
+                String title = board.getTitle();
+                mailService.sendHTMLMail(toEmail, toName, title);
+
+
                 return ResponseEntity.ok("Participation created");
             } catch (Exception e) {
                 return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
@@ -129,7 +135,7 @@ public class ApplicationController {
         //참가신청 이력이 있으면 status를 반환
         //[1:수락 0:대기 -1:거절 -99:참여정보 없음]
     }
-
+  
     @GetMapping("find/like/{id}")
     public Boolean findLike(@PathVariable Long id, @RequestHeader("User-Id") Long userId) {
         User user = userService.findById(userId);
@@ -138,5 +144,43 @@ public class ApplicationController {
         System.out.println("보드와 유저로 찾은 Likes: " + likes);
         if (likes != null) return true;
         else return false;
+    }
+
+    @PostMapping("/acceptparticipants")
+    public ResponseEntity<String> acceptParticipants(@RequestBody ParticipantsDto participantsDto) {
+        System.out.println(participantsDto.getEmail());
+        System.out.println(participantsDto.getBoardNo());
+        User user = userService.findByEmail(participantsDto.getEmail());
+        Board board = boardService.findById(participantsDto.getBoardNo());
+        Participants participants = participantsService.findByBoardAndUser(board, user);
+        if (participants != null) {
+            try {
+                participants.setStatus(1);
+                participantsService.editParticipant(participants);
+                System.out.print(participants);
+                return ResponseEntity.ok("Participated ");
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
+            }
+        } else return ResponseEntity.badRequest().body("잘못된 요청입니다.");
+    }
+
+    @PostMapping("/denyparticipants")
+    public ResponseEntity<String> denyParticipants(@RequestBody ParticipantsDto participantsDto) {
+        System.out.println(participantsDto.getEmail());
+        System.out.println(participantsDto.getBoardNo());
+        User user = userService.findByEmail(participantsDto.getEmail());
+        Board board = boardService.findById(participantsDto.getBoardNo());
+        Participants participants = participantsService.findByBoardAndUser(board, user);
+        if (participants != null) {
+            try {
+                participants.setStatus(-1);
+                participantsService.editParticipant(participants);
+                System.out.print(participants);
+                return ResponseEntity.ok("Denied ");
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
+            }
+        } else return ResponseEntity.badRequest().body("잘못된 요청입니다.");
     }
 }

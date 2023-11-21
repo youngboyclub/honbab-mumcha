@@ -61,7 +61,6 @@ public class BoardController {
         );
 
         ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
-
         return ResponseEntity.ok(responseBoardDto);
     }
 
