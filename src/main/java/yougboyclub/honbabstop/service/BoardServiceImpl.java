@@ -128,6 +128,7 @@ public class BoardServiceImpl implements BoardService {
                 request.getRestaurantAddress(),
                 request.getLocationX(),
                 request.getLocationY());
+        boardRepository.save(board);
         return board;
     }
 

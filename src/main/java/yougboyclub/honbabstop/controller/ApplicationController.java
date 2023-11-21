@@ -3,10 +3,7 @@ package yougboyclub.honbabstop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
 import yougboyclub.honbabstop.domain.Likes;
 import yougboyclub.honbabstop.domain.Participants;
@@ -138,6 +135,16 @@ public class ApplicationController {
         //참가신청 이력이 있으면 status를 반환
         //[1:수락 0:대기 -1:거절 -99:참여정보 없음]
     }
+  
+    @GetMapping("find/like/{id}")
+    public Boolean findLike(@PathVariable Long id, @RequestHeader("User-Id") Long userId) {
+        User user = userService.findById(userId);
+        Board board = boardService.findById(id);
+        Likes likes = likesService.findByBoardAndUser(board, user);
+        System.out.println("보드와 유저로 찾은 Likes: " + likes);
+        if (likes != null) return true;
+        else return false;
+    }
 
     @PostMapping("/acceptparticipants")
     public ResponseEntity<String> acceptParticipants(@RequestBody ParticipantsDto participantsDto) {
@@ -176,7 +183,4 @@ public class ApplicationController {
             }
         } else return ResponseEntity.badRequest().body("잘못된 요청입니다.");
     }
-
-
 }
-
