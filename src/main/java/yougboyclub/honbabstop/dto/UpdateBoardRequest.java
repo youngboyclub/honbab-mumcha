@@ -14,7 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 public class UpdateBoardRequest {
-  private Long boardId;
   private User writer;
   private String title;
   private String content;
