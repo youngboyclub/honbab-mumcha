@@ -72,9 +72,9 @@ public class ApplicationController {
     public ResponseEntity<List<Participants>> findParticipants(@RequestBody ParticipantsDto participantsDto) {
         //유저 검색 좀더 보완, 이메일뿐만 아니라 다른 키값으로도 검색할 수 있도록
         User user = userService.findByEmail(participantsDto.getEmail());
-        System.out.println("zzzzzz1" + user.getId());
+        //System.out.println("zzzzzz1" + user.getId());
         List<Participants> boards = participantsService.findByUser(user);
-        System.out.println("zzzzzz2" + boards.get(0).getBoard().getId());
+        //System.out.println("zzzzzz2" + boards.get(0).getBoard().getId());
         //Participants participants = participantsService.findByBoardAndUser(board, user);
         return ResponseEntity.ok(boards);
         //참가신청 이력이 있으면 status를 반환
