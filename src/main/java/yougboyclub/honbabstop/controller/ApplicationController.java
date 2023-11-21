@@ -164,7 +164,7 @@ public class ApplicationController {
                 participants.setStatus(-1);
                 participantsService.editParticipant(participants);
                 System.out.print(participants);
-                return ResponseEntity.ok("Participated ");
+                return ResponseEntity.ok("Denied ");
             } catch (Exception e) {
                 return ResponseEntity.internalServerError().body("서버 오류: " + e.getMessage());
             }
