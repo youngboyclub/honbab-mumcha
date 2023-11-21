@@ -105,6 +105,15 @@ public class BoardController {
     @PutMapping("/boardDetails/edit/{id}")
     public ResponseEntity<Board> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
         Board updateBoard = boardService.updateById(id, request);
+        User user = userService.findByEmail(updateBoard.getWriter().getEmail());
+
+        participantsService.createParticipant(Participants.builder()
+                .board(updateBoard)
+                .user(user)
+                .status(1)
+                .build()
+        );
+
         return ResponseEntity.ok().body(updateBoard);
     }
 
