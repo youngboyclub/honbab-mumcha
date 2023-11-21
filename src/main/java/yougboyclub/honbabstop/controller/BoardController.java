@@ -5,12 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yougboyclub.honbabstop.domain.Board;
+import yougboyclub.honbabstop.domain.Participants;
 import yougboyclub.honbabstop.domain.User;
+import yougboyclub.honbabstop.dto.ParticipantsDto;
 import yougboyclub.honbabstop.dto.RequestBoardDto;
 import yougboyclub.honbabstop.dto.ResponseBoardDto;
 import yougboyclub.honbabstop.dto.UpdateBoardRequest;
 import yougboyclub.honbabstop.service.BoardService;
 import yougboyclub.honbabstop.service.LikesService;
+import yougboyclub.honbabstop.service.ParticipantsService;
 import yougboyclub.honbabstop.service.UserService;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class BoardController {
     private final BoardService boardService;
     private final LikesService likesService;
     private final UserService userService;
+    private final ParticipantsService participantsService;
 
     //모든 모집글 조회
     @GetMapping
@@ -44,7 +48,20 @@ public class BoardController {
     public ResponseEntity<ResponseBoardDto> createBoard(@RequestBody RequestBoardDto dto) {
         System.out.println("이건 컨트롤러로 들어오는 dto: " + dto);
         Board board = boardService.createBoard(dto);
+
+        User user = userService.findByEmail(board.getWriter().getEmail());
+        // 유저 이메일 잘 들어오는지 확인
+        System.out.println("유저 : " + user);
+
+        participantsService.createParticipant(Participants.builder()
+                .board(board)
+                .user(user)
+                .status(1)
+                .build()
+        );
+
         ResponseBoardDto responseBoardDto = new ResponseBoardDto(board);
+
         return ResponseEntity.ok(responseBoardDto);
     }
 
