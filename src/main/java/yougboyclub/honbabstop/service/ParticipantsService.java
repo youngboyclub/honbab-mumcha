@@ -17,5 +17,4 @@ public interface ParticipantsService {
     Participants findByBoardAndUser(Board board, User user);
 
     void editParticipant(Participants participants);
-
 }
