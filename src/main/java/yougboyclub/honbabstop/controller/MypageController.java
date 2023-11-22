@@ -76,4 +76,13 @@ public class MypageController {
 
         return temp;
     }
+
+    @GetMapping("/party/{id}")
+    public List<ParticipantsUserInfoDto> detailPageParticipantsList(@PathVariable Long id) {
+        Board partyBoard = boardService.findById(id);
+
+        List<User> partyUser = participantsService.findByBoardPartyUser(partyBoard);
+        List<ParticipantsUserInfoDto> userInfo = partyUser.stream().map(ParticipantsUserInfoDto::new).collect(Collectors.toList());
+        return userInfo;
+    }
 }
