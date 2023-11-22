@@ -21,12 +21,9 @@ public class UpdateBoardRequest {
   private Date meetDate;
   private String foodCategory;
   private String placeCategory;
-  private int status;
   private int people;
   private String restaurantName;
   private String restaurantAddress;
-  private LocalDateTime regDate;
-  private Long hit;
   private LocalDateTime lastModified;
   private String locationX;
   private String locationY;

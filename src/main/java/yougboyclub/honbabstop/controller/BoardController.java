@@ -103,7 +103,8 @@ public class BoardController {
 
     //모집글 수정
     @PutMapping("/boardDetails/edit/{id}")
-    public ResponseEntity<Board> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
+    public ResponseEntity<ResponseBoardDto> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
+        System.out.println("업데이트 보드 리퀘스트= " + request);
         Board updateBoard = boardService.updateById(id, request);
         User user = userService.findByEmail(updateBoard.getWriter().getEmail());
 
@@ -114,20 +115,21 @@ public class BoardController {
                 .build()
         );
 
-        return ResponseEntity.ok().body(updateBoard);
+        ResponseBoardDto responseBoardDto = new ResponseBoardDto(updateBoard);
+        return ResponseEntity.ok().body(responseBoardDto);
     }
 
     //모집글 삭제
     //외래키 제약 조건 때문에 삭제 안돼ㅠ
     @DeleteMapping("/boardDetails/delete/{id}")
     public ResponseEntity<ResponseBoardDto> deleteById(@PathVariable Long id, @RequestHeader("User-Id") Long userId) {
-      // 게시글 존재 확인 및 권한 확인
-      boardService.deleteById(id, userId);
-      // 삭제 성공 확인
-      if (boardService.findById(id) != null) {
-        throw new IllegalArgumentException("게시글 삭제에 실패했습니다.");
-      }
-      return new ResponseEntity<>(HttpStatus.OK);
+        // 게시글 존재 확인 및 권한 확인
+        boardService.deleteById(id, userId);
+        // 삭제 성공 확인
+        if (boardService.findById(id) != null) {
+            throw new IllegalArgumentException("게시글 삭제에 실패했습니다.");
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/findby/{keyword}")
