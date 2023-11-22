@@ -28,6 +28,7 @@ public class ResponseBoardDto {
   private User writer;
   private String restaurantAddress;
   private String foodCategory;
+  private String placeCategory;
   private LocalTime time;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   private Date meetDate;
@@ -49,6 +50,7 @@ public class ResponseBoardDto {
     this.restaurantAddress = board.getRestaurantAddress();
     this.writer = board.getWriter();
     this.foodCategory = board.getFoodCategory();
+    this.placeCategory = board.getPlaceCategory();
     this.time = board.getTime();
     this.meetDate = board.getMeetDate();
     this.people = board.getPeople();

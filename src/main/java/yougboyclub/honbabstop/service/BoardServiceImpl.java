@@ -72,7 +72,17 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public Board update(Long id, UpdateBoardRequest request) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-        board.update(request.getTitle(), request.getContent(), request.getTime(), request.getMeetDate(), request.getFoodCategory(), request.getPlaceCategory(), request.getPeople(), request.getRestaurantName(), request.getRestaurantAddress(), request.getLocationX(), request.getLocationY());
+        board.update(request.getTitle(),
+                    request.getContent(),
+                    request.getTime(),
+                    request.getMeetDate(),
+                    request.getFoodCategory(),
+                    request.getPlaceCategory(),
+                    request.getPeople(),
+                    request.getRestaurantName(),
+                    request.getRestaurantAddress(),
+                    request.getLocationX(),
+                    request.getLocationY());
         return board;
     }
 
