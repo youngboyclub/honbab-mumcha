@@ -11,7 +11,7 @@ import yougboyclub.honbabstop.service.LikesService;
 import yougboyclub.honbabstop.service.ParticipantsService;
 import yougboyclub.honbabstop.service.UserService;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,7 +29,7 @@ public class MypageController {
     // RequestParm으로 해보기
     @GetMapping
 
-    public List<ResponseBoardDto> showMyBoard (@RequestParam String email) {
+    public List<ResponseBoardDto> showMyBoard(@RequestParam String email) {
         //get요청으로 받아오면 param으로 넘겨 받아야함
         User userId = userService.findByEmail(email);
         List<Board> party = boardService.findByUser(userId);
@@ -42,7 +42,7 @@ public class MypageController {
 
     // 마이 페이지 목록 변화에 따라 변화해야함
     @GetMapping("/board/{myCategory}")
-    public List<ResponseBoardDto> selectCategory (@PathVariable String myCategory, @RequestParam String email) {
+    public List<ResponseBoardDto> selectCategory(@PathVariable String myCategory, @RequestParam String email) {
         User findUser = userService.findByEmail(email);
 
         //카테고리 설정에 따라서 출력 결과물 변화
@@ -61,12 +61,19 @@ public class MypageController {
         }
     }
 
-    @GetMapping("/party/{id}")
-    public List<ParticipantsUserInfoDto> myPartyUser(@PathVariable Long id) {
-        Board partyBoard = boardService.findById(id);
+    @PostMapping("/party")
+    public Map<String, List<ParticipantsUserInfoDto>> myPartyUser(@RequestBody Long[] boardId) {
+        Map<String, List<ParticipantsUserInfoDto>> temp = new HashMap<>();
 
-        List<User> partyUser = participantsService.findByBoardPartyUser(partyBoard);
-        List<ParticipantsUserInfoDto> userInfo = partyUser.stream().map(ParticipantsUserInfoDto::new).collect(Collectors.toList());
-        return userInfo;
+        for (Long id : boardId) {
+            Board partyBoard = boardService.findById(id);
+            List<User> users = participantsService.findByBoardPartyUser(partyBoard);
+            System.out.println(users);
+            List<ParticipantsUserInfoDto> userInfo = users.stream().map(ParticipantsUserInfoDto::new).collect(Collectors.toList());
+            System.out.println(userInfo);
+            temp.put(partyBoard.getTitle(), userInfo);
+        }
+
+        return temp;
     }
 }
