@@ -106,15 +106,6 @@ public class BoardController {
     public ResponseEntity<ResponseBoardDto> updateById(@PathVariable Long id, @RequestBody UpdateBoardRequest request) {
         System.out.println("업데이트 보드 리퀘스트= " + request);
         Board updateBoard = boardService.updateById(id, request);
-        User user = userService.findByEmail(updateBoard.getWriter().getEmail());
-
-        participantsService.createParticipant(Participants.builder()
-                .board(updateBoard)
-                .user(user)
-                .status(1)
-                .build()
-        );
-
         ResponseBoardDto responseBoardDto = new ResponseBoardDto(updateBoard);
         return ResponseEntity.ok().body(responseBoardDto);
     }
