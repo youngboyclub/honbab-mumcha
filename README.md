@@ -46,7 +46,7 @@ _구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하�
 
 
 
-## 기술 스택
+## 🔨 기술 스택
 
 | JAVA | Spring boot | React | TailWind 
 | :--------: | :--------: | :--------: | :--------: | 
@@ -54,14 +54,16 @@ _구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하�
 
 <br>
 
-## 구현 기능
+## 🔥 구현 기능
 
 ### 메인페이지
+
 
 ### 회원가입
 ![회원가입](https://github.com/youngboyclub/honbab-mumcha/assets/114975279/243de224-fb48-4635-a1a1-429212ae0c9e)
 
 ### 로그인
+
 
 ### 게시판
 ![게시판둘러보기](https://github.com/youngboyclub/honbab-mumcha/assets/114975279/df3ce1fe-78ba-4286-b164-d31ee962fe66)
@@ -87,18 +89,17 @@ _구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하�
 
 <br>
 
-## 사용 예제
+## 👀 사용 예제
 -예정
 
 
 <br>
 
-## 환경 설정
-<!--모든 개발 의존성 설치 방법과 자동 테스트 슈트 실행 방법을 운영체제 별로 작성합니다.-->
--예정
+## 🌫️ 환경 설정
+[개발환경](https://github.com/youngboyclub/honbab-mumcha/wiki/%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD)
 
 
-## 정보
+## 🚀 정보
 - 청년취업사관학교 새싹 영등포 SW캠퍼스<br>
   - 백엔드 구축을 위한 클라우드 기술 활용 개발자 과정(JAVA 기반)
 
