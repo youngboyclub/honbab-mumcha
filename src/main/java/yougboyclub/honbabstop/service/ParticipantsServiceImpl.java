@@ -26,7 +26,7 @@ public class ParticipantsServiceImpl implements ParticipantsService {
 
     @Override
     public Participants findByBoardAndUser(Board board, User user) {
-        return participantsRepository.findByBoardAndAndUser(board, user);
+        return participantsRepository.findByBoardAndUser(board, user);
     }
 
     @Override
