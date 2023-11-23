@@ -1,14 +1,12 @@
 package yougboyclub.honbabstop.dto;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import yougboyclub.honbabstop.domain.User;
 
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ParticipantsUserInfoDto {
 

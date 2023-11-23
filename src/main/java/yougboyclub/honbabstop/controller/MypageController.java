@@ -11,7 +11,9 @@ import yougboyclub.honbabstop.service.LikesService;
 import yougboyclub.honbabstop.service.ParticipantsService;
 import yougboyclub.honbabstop.service.UserService;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +30,6 @@ public class MypageController {
     // User에 대한 정보를 받아 Id를 조회해서 본인이 작성한 글을 조회하기 컨트롤러
     // RequestParm으로 해보기
     @GetMapping
-
     public List<ResponseBoardDto> showMyBoard(@RequestParam String email) {
         //get요청으로 받아오면 param으로 넘겨 받아야함
         User userId = userService.findByEmail(email);
@@ -63,7 +64,8 @@ public class MypageController {
 
     @PostMapping("/party")
     public Map<String, List<ParticipantsUserInfoDto>> myPartyUser(@RequestBody Long[] boardId) {
-        Map<String, List<ParticipantsUserInfoDto>> temp = new HashMap<>();
+        //boardId 배열이 넘어옴
+        Map<String, List<ParticipantsUserInfoDto>> temp = new LinkedHashMap<>();
 
         for (Long id : boardId) {
             Board partyBoard = boardService.findById(id);
@@ -73,6 +75,7 @@ public class MypageController {
             System.out.println(userInfo);
             temp.put(partyBoard.getTitle(), userInfo);
         }
+
 
         return temp;
     }
