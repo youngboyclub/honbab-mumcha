@@ -10,7 +10,9 @@
 > Meet Together Eat Together!
 
 ## 멤버
-_구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하세요._
+_구성원과 프로젝트 구조에 대한 자세한 정보는 [Wiki][wiki]를 참고하세요._
+![멤버소개](https://github.com/youngboyclub/honbab-mumcha/assets/75743050/1d98c049-9e19-4318-a241-2936d2bfe5ef)
+
 
 ## Version Guide
 ### npm version
