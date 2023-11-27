@@ -54,6 +54,59 @@ _구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하�
 
 <br>
 
+## 🌫️ 환경 설정
+[개발환경 Wiki](https://github.com/youngboyclub/honbab-mumcha/wiki/%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD)
+
+### Back
+이름 | 버전 | 기능
+-- | -- | --
+cloud aws | 2.2.6 | 데이터베이스 클라우드 시스템
+jpa |   | jpa orm
+thymeleaf |   | 뷰단 테스트용
+spring web |   | tomcat
+websocket |   | 채팅기능 구현
+mongodb | 5.0.21 | 채팅기능 구현
+validation |   | 백엔드 벨리데이션
+mail |   | 회원가입 메일 인증용
+redis |   | jwt 토큰 저장
+lombok |   | 롬복 어노테이션
+h2 |   | 데이터베이스 테스트용
+mysql connector j | 5.0.21 | mysql 연결
+
+### Front
+이름 | 버전 | 기능
+-- | -- | --
+ant-design/icons | 5.2.6 | 컴포넌트를 사용하여 아이콘 쉽게 사용
+craco/craco |  7.1.0 |  테일윈드 확장
+stomp/stompjs | 7.0.0   |  채팅 기능 구현 
+axios | 1.6.0 | 비동기 통신  
+date-fns | 2.30.0 | 날짜 및 시간 다루기 
+http-proxy-middleware | 2.0.6 |  백과 프론트 간 프록시 설정 
+react-kakao-maps-sdk |  1.1.24 | 리액트에서 카카오 맵 api를 사용하게 해줌 
+swiper | 11.0.3 | 배너 슬라이드를 위한 라이브러리 
+
+
+
+### server
+
+**node.js : 21.1.0**
+
+**Tool**
+
+- **figma**
+- **notion**
+- **obsidian**
+- **discord**
+- **github wiki**
+
+**형상관리 및 협업**
+
+- **git**
+- **github**
+- **git flow(forking workflow 사용)**
+
+<br>
+
 ## 📑 DB 명세
 <h2>USER</h2>
 
@@ -121,64 +174,11 @@ https://github.com/youngboyclub/honbab-mumcha/assets/112153004/934ca491-0fc8-4d5
 ![마이페이지](https://github.com/youngboyclub/honbab-mumcha/assets/114975279/8664feaf-b749-48e7-b93b-d93f02b61abc)
 
 
-<br>
-
-## 👀 사용 예제
--예정
 
 
 <br>
 
-## 🌫️ 환경 설정
-[개발환경 Wiki](https://github.com/youngboyclub/honbab-mumcha/wiki/%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD)
 
-### Back
-이름 | 버전 | 기능
--- | -- | --
-cloud aws | 2.2.6 | 데이터베이스 클라우드 시스템
-jpa |   | jpa orm
-thymeleaf |   | 뷰단 테스트용
-spring web |   | tomcat
-websocket |   | 채팅기능 구현
-mongodb | 5.0.21 | 채팅기능 구현
-validation |   | 백엔드 벨리데이션
-mail |   | 회원가입 메일 인증용
-redis |   | jwt 토큰 저장
-lombok |   | 롬복 어노테이션
-h2 |   | 데이터베이스 테스트용
-mysql connector j | 5.0.21 | mysql 연결
-
-### Front
-이름 | 버전 | 기능
--- | -- | --
-ant-design/icons | 5.2.6 | 컴포넌트를 사용하여 아이콘 쉽게 사용
-craco/craco |  7.1.0 |  테일윈드 확장
-stomp/stompjs | 7.0.0   |  채팅 기능 구현 
-axios | 1.6.0 | 비동기 통신  
-date-fns | 2.30.0 | 날짜 및 시간 다루기 
-http-proxy-middleware | 2.0.6 |  백과 프론트 간 프록시 설정 
-react-kakao-maps-sdk |  1.1.24 | 리액트에서 카카오 맵 api를 사용하게 해줌 
-swiper | 11.0.3 | 배너 슬라이드를 위한 라이브러리 
-
-
-
-### server
-
-**node.js : 21.1.0**
-
-**Tool**
-
-- **figma**
-- **notion**
-- **obsidian**
-- **discord**
-- **github wiki**
-
-**형상관리 및 협업**
-
-- **git**
-- **github**
-- **git flow(forking workflow 사용)**
 
 
 
