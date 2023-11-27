@@ -54,6 +54,24 @@ _구성원에 대한 정보와 프로젝트 구조는 [Wiki][wiki]를 참고하�
 
 <br>
 
+## 📑 API 명세
+<h2>USER</h2>
+
+key | 컬럼설명 | 컬럼명(영어) | 타입 | NULL | 비고
+-- | -- | -- | -- | -- | --
+PK | 사용자번호 | USER_ID | BIGINT | NOT NULL |  
+  | 생성일 | REG_DATE | DATETIME | NOT NULL |  
+  | 아이디 | USER_EMAIL | VARCHAR(255) | NOT NULL |  
+  | 비밀번호 | USER_PWD | VARCHAR(255) | NOT NULL |  
+  | 이름 | USER_NAME | VARCHAR(255) | NOT NULL |  
+  | 생년월일 | BIRTHDAY | DATETIME | NOT NULL |  
+  | 휴대폰번호 | PHONE_NUMBER | VARCHAR(255) | NOT NULL |  
+  | 거주지역(주소) | ADRESS | VARCHAR(255) | NULL |  
+  | 성별 | GENDER | VARCHAR(255) | NOT NULL |  
+  | MBTI | MBTI | VARCHAR(32) | NULL |  
+
+[... 더보기](https://github.com/youngboyclub/honbab-mumcha/wiki/DB-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%AA%85%EC%84%B8%EC%84%9C)
+
 ## 🔥 화면
 https://github.com/youngboyclub/honbab-mumcha/assets/112153004/b86bea7c-bfc5-4b0f-98a8-c4c107f6f59a
 
