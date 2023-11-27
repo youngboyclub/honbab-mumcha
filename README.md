@@ -108,7 +108,7 @@ swiper | 11.0.3 | 배너 슬라이드를 위한 라이브러리
 <br>
 
 ## 📑 DB 명세
-<h2>USER</h2>
+### USER
 
 key | 컬럼설명 | 컬럼명(영어) | 타입 | NULL | 비고
 -- | -- | -- | -- | -- | --
@@ -126,7 +126,7 @@ PK | 사용자번호 | USER_ID | BIGINT | NOT NULL |  
 [... 더보기](https://github.com/youngboyclub/honbab-mumcha/wiki/DB-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%AA%85%EC%84%B8%EC%84%9C)
 
 ## 📑 API 명세
-<h2>Board-Controller</h2>
+### Board-Controller
 
 기능 설명 | URL | HTTP Method
 -- | -- | --
