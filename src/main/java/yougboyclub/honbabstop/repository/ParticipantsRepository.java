@@ -31,7 +31,7 @@ public interface ParticipantsRepository extends JpaRepository<Participants, Long
 
 //    List<Board> findBoardByUser(@Param("user") User user);
 
-    Participants findByBoardAndAndUser(Board board, User user);
+    Participants findByBoardAndUser(Board board, User user);
 
     List<Participants> findByUser(User user);
 
