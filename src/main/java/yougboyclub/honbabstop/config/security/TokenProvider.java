@@ -3,6 +3,8 @@ package yougboyclub.honbabstop.config.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -19,9 +21,11 @@ import java.util.Date;
  * payload: sub (해당 토큰의 주인), iat (토큰이 발행된 시간), exp (토큰이 만료되는 시간)
  */
 @Service
+@RequiredArgsConstructor
 public class TokenProvider {
     //JWT 생성 및 검증을 위한 키
-    private static final String SECURITY_KEY = "jwtseckey!@";
+    @Value("${jwt.secret}")
+    private String SECURITY_KEY;
 
     //JWT 생성하는 메서드
     public String create (String email){
@@ -36,7 +40,7 @@ public class TokenProvider {
     }
 
     //토큰으로부터 회원이메일(email)을 받아 옴.
-    public static String validate (String token){
+    public String validate (String token){
         Claims claims = Jwts.parser().setSigningKey(SECURITY_KEY).parseClaimsJws(token).getBody();
 
         return claims.getSubject();

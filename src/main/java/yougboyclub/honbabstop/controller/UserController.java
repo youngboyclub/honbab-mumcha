@@ -50,7 +50,7 @@ public class UserController {
 
     //회원가입
     @PostMapping("/new")
-    public ResponseEntity<String> join(@RequestBody @Validated RequestUserDto dto, BindingResult bindingResult) {
+    public ResponseEntity<String> join(@RequestBody  RequestUserDto dto, BindingResult bindingResult) {
         System.out.println("dto = " + dto);
         //입력받은 정보 중 필수정보나 형식에 맞지 않을 시, 에러 반환.
         if (bindingResult.hasErrors()) {

@@ -22,14 +22,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthencationFilter extends OncePerRequestFilter {
 
-    //requset 가 들어왔을 때 requset header의 Authorization 필드의 Bearer Token을 가져옴
+    //request 가 들어왔을 때 requset header의 Authorization 필드의 Bearer Token을 가져옴
     //가져온 토큰을 검증하고 검증 결과를 securityContext에 추가
 
     private final TokenProvider tokenProvider;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
+        System.out.println("1111");
         try{
 
         String token = parseBearerToken(request);
